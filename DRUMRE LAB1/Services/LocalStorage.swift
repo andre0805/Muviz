@@ -8,4 +8,6 @@
 import Foundation
 
 enum LocalStorage {
+    @Storage(key: "user", defaultValue: nil)
+    static var currentUser: User?
 }

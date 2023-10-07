@@ -1,50 +1,46 @@
 //
-//  RootViewModel.swift
 //  DRUMRE LAB1
+//  HomeViewModel.swift
 //
 //  Andre Flego
 //
 
-import SwiftUI
+import Foundation
 import Combine
 
-class RootViewModel: ObservableObject {
+class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     private let sessionManager: SessionManager
 
     let input = Input()
-    @Published private(set) var output = Output()
+    @Published private(set) var output: Output
 
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
+        self.output = Output(user: sessionManager.currentUser ?? User(id: "1", name: "Andre", email: "ade.flego@gmail.com"))
         bindInput()
     }
 }
 
 // MARK: Input & Output
-extension RootViewModel {
+extension HomeViewModel {
     struct Input {
         let viewDidAppear = PassthroughSubject<Void, Never>()
-        let updateState = PassthroughSubject<RootViewState, Never>()
+        let logoutButtonTapped = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
-        var state: RootViewState = .loading
-    }
-
-    enum RootViewState {
-        case loading
-        case authRequired
-        case home
+        let title: String = "Home"
+        let user: User
     }
 }
 
 // MARK: Bind Input
-private extension RootViewModel {
+private extension HomeViewModel {
     func bindInput() {
         bindViewDidAppear()
-        bindSessionManager()
+        bindLogoutButtonTapped()
     }
 
     func bindViewDidAppear() {
@@ -55,18 +51,15 @@ private extension RootViewModel {
             .store(in: &cancellables)
     }
 
-    func bindSessionManager() {
-        sessionManager.$currentUser
-            .receive(on: DispatchQueueFactory.main)
-            .sink { [unowned self] user in
-                withAnimation {
-                    output.state = user != nil ? .home : .authRequired
-                }
+    func bindLogoutButtonTapped() {
+        input.logoutButtonTapped
+            .sink { [unowned self] _ in
+                sessionManager.logOut()
             }
             .store(in: &cancellables)
     }
 }
 
 // MARK: Functions
-private extension RootViewModel {
+private extension HomeViewModel {
 }

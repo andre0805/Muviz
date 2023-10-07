@@ -11,6 +11,8 @@ import Combine
 struct RootView: View {
     @StateObject private var viewModel: RootViewModel
 
+    @EnvironmentObject var sessionManager: SessionManager
+
     init(_ viewModel: @escaping () -> RootViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel())
     }
@@ -36,23 +38,25 @@ struct RootView: View {
 // MARK: Views
 private extension RootView {
     var loginView: some View {
-        Button {
-            print("🔥 login")
-        } label: {
-            Text("Login")
+        NavigationStack {
+            LoginView {
+                LoginViewModel(sessionManager: sessionManager)
+            }
         }
     }
 
     var homeView: some View {
-        Text("Home")
+        NavigationStack {
+            HomeView {
+                HomeViewModel(sessionManager: sessionManager)
+            }
+        }
     }
 }
 
-struct RootPreviews: PreviewProvider {
-    static var previews: some View {
-        RootView {
-            RootViewModel()
-        }
+#Preview {
+    RootView {
+        RootViewModel(sessionManager: .shared)
     }
 }
 

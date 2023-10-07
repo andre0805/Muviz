@@ -37,6 +37,11 @@
 		653B8CA12AD1C2E1008DD800 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C9F2AD1C2E1008DD800 /* RootView.swift */; };
 		653B8CA22AD1C2E1008DD800 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CA02AD1C2E1008DD800 /* RootViewModel.swift */; };
 		653B8CA42AD1C47E008DD800 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CA32AD1C47E008DD800 /* SessionManager.swift */; };
+		653B8CA72AD1D0CF008DD800 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CA62AD1D0CF008DD800 /* User.swift */; };
+		653B8CAB2AD1D92D008DD800 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CA92AD1D92D008DD800 /* LoginView.swift */; };
+		653B8CAC2AD1D92D008DD800 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */; };
+		653B8CB02AD21829008DD800 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAE2AD21829008DD800 /* HomeView.swift */; };
+		653B8CB12AD21829008DD800 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAF2AD21829008DD800 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +72,11 @@
 		653B8C9F2AD1C2E1008DD800 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		653B8CA02AD1C2E1008DD800 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		653B8CA32AD1C47E008DD800 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		653B8CA62AD1D0CF008DD800 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		653B8CA92AD1D92D008DD800 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		653B8CAE2AD21829008DD800 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		653B8CAF2AD21829008DD800 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +121,7 @@
 				653B8C772AD18AE2008DD800 /* Extensions */,
 				653B8C492AD18A67008DD800 /* Network */,
 				653B8C5A2AD18A7F008DD800 /* Services */,
+				653B8CA52AD1D0C6008DD800 /* Models */,
 				653B8C462AD18846008DD800 /* Modules */,
 			);
 			path = "DRUMRE LAB1";
@@ -137,6 +148,8 @@
 			children = (
 				653B8C372AD1875F008DD800 /* DRUMRE_LAB1App.swift */,
 				653B8C9C2AD1C2AB008DD800 /* Root */,
+				653B8CA82AD1D91F008DD800 /* Login */,
+				653B8CAD2AD2181C008DD800 /* Home */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -230,6 +243,32 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		653B8CA52AD1D0C6008DD800 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				653B8CA62AD1D0CF008DD800 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		653B8CA82AD1D91F008DD800 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				653B8CA92AD1D92D008DD800 /* LoginView.swift */,
+				653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		653B8CAD2AD2181C008DD800 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				653B8CAE2AD21829008DD800 /* HomeView.swift */,
+				653B8CAF2AD21829008DD800 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -311,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653B8CB02AD21829008DD800 /* HomeView.swift in Sources */,
 				653B8C6B2AD18A7F008DD800 /* LocalStorage.swift in Sources */,
 				653B8CA42AD1C47E008DD800 /* SessionManager.swift in Sources */,
 				653B8C8C2AD18B5B008DD800 /* Application.swift in Sources */,
@@ -319,11 +359,13 @@
 				653B8C822AD18AE2008DD800 /* URLSession+dataTask.swift in Sources */,
 				653B8C532AD18A67008DD800 /* APIError.swift in Sources */,
 				653B8C6C2AD18A7F008DD800 /* Router.swift in Sources */,
+				653B8CAC2AD1D92D008DD800 /* LoginViewModel.swift in Sources */,
 				653B8C832AD18AE2008DD800 /* Dictionary+Extensions.swift in Sources */,
 				653B8CA22AD1C2E1008DD800 /* RootViewModel.swift in Sources */,
 				653B8C802AD18AE2008DD800 /* Thread+debug.swift in Sources */,
 				653B8C572AD18A67008DD800 /* ApiResponse.swift in Sources */,
 				653B8C562AD18A67008DD800 /* MockApiResponse.swift in Sources */,
+				653B8CAB2AD1D92D008DD800 /* LoginView.swift in Sources */,
 				653B8CA12AD1C2E1008DD800 /* RootView.swift in Sources */,
 				653B8C8D2AD18B5B008DD800 /* Storage.swift in Sources */,
 				653B8C6A2AD18A7F008DD800 /* Logger.swift in Sources */,
@@ -331,6 +373,8 @@
 				653B8C542AD18A67008DD800 /* Authorizable.swift in Sources */,
 				653B8C8B2AD18B5B008DD800 /* DispatchQueueFactory.swift in Sources */,
 				653B8C592AD18A67008DD800 /* RequestMethod.swift in Sources */,
+				653B8CB12AD21829008DD800 /* HomeViewModel.swift in Sources */,
+				653B8CA72AD1D0CF008DD800 /* User.swift in Sources */,
 				653B8C552AD18A67008DD800 /* Endpoint.swift in Sources */,
 				653B8C7F2AD18AE2008DD800 /* Publisher+Utility.swift in Sources */,
 				653B8C8E2AD18B5B008DD800 /* Constants.swift in Sources */,

@@ -7,14 +7,14 @@
       <dict>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>com.andreflego.DRUMRE-LAB1</string>
+        <string>fb1049155749507468</string>
       </array>
       </dict>
     </array>
     <key>FacebookAppID</key>
-    <string>com.andreflego.DRUMRE-LAB1</string>
+    <string>1049155749507468</string>
     <key>FacebookClientToken</key>
-    <string>f323a77b8f866a067356608cf46e723a</string>
+    <string>56553a038f3915dfb865639547bcdcc7</string>
     <key>FacebookDisplayName</key>
     <string>Lab1</string>
     <key>LSApplicationQueriesSchemes</key>

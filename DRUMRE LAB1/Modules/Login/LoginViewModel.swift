@@ -1,6 +1,6 @@
 //
-//  RootViewModel.swift
 //  DRUMRE LAB1
+//  LoginViewModel.swift
 //
 //  Andre Flego
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class RootViewModel: ObservableObject {
+class LoginViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     private let sessionManager: SessionManager
@@ -23,28 +23,22 @@ class RootViewModel: ObservableObject {
 }
 
 // MARK: Input & Output
-extension RootViewModel {
+extension LoginViewModel {
     struct Input {
         let viewDidAppear = PassthroughSubject<Void, Never>()
-        let updateState = PassthroughSubject<RootViewState, Never>()
+        let loginButtonTapped = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
-        var state: RootViewState = .loading
-    }
-
-    enum RootViewState {
-        case loading
-        case authRequired
-        case home
+        let title: String = "Login"
     }
 }
 
 // MARK: Bind Input
-private extension RootViewModel {
+private extension LoginViewModel {
     func bindInput() {
         bindViewDidAppear()
-        bindSessionManager()
+        bindLoginButtonTapped()
     }
 
     func bindViewDidAppear() {
@@ -55,18 +49,15 @@ private extension RootViewModel {
             .store(in: &cancellables)
     }
 
-    func bindSessionManager() {
-        sessionManager.$currentUser
-            .receive(on: DispatchQueueFactory.main)
-            .sink { [unowned self] user in
-                withAnimation {
-                    output.state = user != nil ? .home : .authRequired
-                }
+    func bindLoginButtonTapped() {
+        input.loginButtonTapped
+            .sink { [unowned self] _ in
+                sessionManager.logIn()
             }
             .store(in: &cancellables)
     }
 }
 
 // MARK: Functions
-private extension RootViewModel {
+private extension LoginViewModel {
 }
