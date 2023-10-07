@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  DRUMRE LAB1
 //
-//  Created by Andre Flego on 07.10.2023..
+//  Andre Flego
 //
 
 import SwiftUI

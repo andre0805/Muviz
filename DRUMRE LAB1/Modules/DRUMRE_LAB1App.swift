@@ -2,7 +2,7 @@
 //  DRUMRE_LAB1App.swift
 //  DRUMRE LAB1
 //
-//  Created by Andre Flego on 07.10.2023..
+//  Andre Flego
 //
 
 import SwiftUI
