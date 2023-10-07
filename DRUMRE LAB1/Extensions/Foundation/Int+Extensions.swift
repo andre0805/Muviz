@@ -2,7 +2,7 @@
 //  Hashsmith
 //  Int+Extensions.swift
 //
-//  Aras Digital Products
+//  Andre Flego
 //
 
 import Foundation

@@ -8,17 +8,65 @@
 
 /* Begin PBXBuildFile section */
 		653B8C382AD1875F008DD800 /* DRUMRE_LAB1App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C372AD1875F008DD800 /* DRUMRE_LAB1App.swift */; };
-		653B8C3A2AD1875F008DD800 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C392AD1875F008DD800 /* ContentView.swift */; };
 		653B8C3C2AD18760008DD800 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653B8C3B2AD18760008DD800 /* Assets.xcassets */; };
 		653B8C3F2AD18760008DD800 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653B8C3E2AD18760008DD800 /* Preview Assets.xcassets */; };
+		653B8C532AD18A67008DD800 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C4A2AD18A67008DD800 /* APIError.swift */; };
+		653B8C542AD18A67008DD800 /* Authorizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C4C2AD18A67008DD800 /* Authorizable.swift */; };
+		653B8C552AD18A67008DD800 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C4D2AD18A67008DD800 /* Endpoint.swift */; };
+		653B8C562AD18A67008DD800 /* MockApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C4F2AD18A67008DD800 /* MockApiResponse.swift */; };
+		653B8C572AD18A67008DD800 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C502AD18A67008DD800 /* ApiResponse.swift */; };
+		653B8C582AD18A67008DD800 /* NetworkProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C512AD18A67008DD800 /* NetworkProvider.swift */; };
+		653B8C592AD18A67008DD800 /* RequestMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C522AD18A67008DD800 /* RequestMethod.swift */; };
+		653B8C6A2AD18A7F008DD800 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C5B2AD18A7F008DD800 /* Logger.swift */; };
+		653B8C6B2AD18A7F008DD800 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C5C2AD18A7F008DD800 /* LocalStorage.swift */; };
+		653B8C6C2AD18A7F008DD800 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C5D2AD18A7F008DD800 /* Router.swift */; };
+		653B8C7F2AD18AE2008DD800 /* Publisher+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C792AD18AE2008DD800 /* Publisher+Utility.swift */; };
+		653B8C802AD18AE2008DD800 /* Thread+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7B2AD18AE2008DD800 /* Thread+debug.swift */; };
+		653B8C812AD18AE2008DD800 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7C2AD18AE2008DD800 /* Int+Extensions.swift */; };
+		653B8C822AD18AE2008DD800 /* URLSession+dataTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7D2AD18AE2008DD800 /* URLSession+dataTask.swift */; };
+		653B8C832AD18AE2008DD800 /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7E2AD18AE2008DD800 /* Dictionary+Extensions.swift */; };
+		653B8C862AD18B08008DD800 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 653B8C852AD18B08008DD800 /* SwiftyBeaver */; };
+		653B8C8B2AD18B5B008DD800 /* DispatchQueueFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C872AD18B5B008DD800 /* DispatchQueueFactory.swift */; };
+		653B8C8C2AD18B5B008DD800 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C882AD18B5B008DD800 /* Application.swift */; };
+		653B8C8D2AD18B5B008DD800 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C892AD18B5B008DD800 /* Storage.swift */; };
+		653B8C8E2AD18B5B008DD800 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C8A2AD18B5B008DD800 /* Constants.swift */; };
+		653B8C922AD18EEA008DD800 /* FacebookAEM in Frameworks */ = {isa = PBXBuildFile; productRef = 653B8C912AD18EEA008DD800 /* FacebookAEM */; };
+		653B8C942AD18EEA008DD800 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 653B8C932AD18EEA008DD800 /* FacebookBasics */; };
+		653B8C962AD18EEA008DD800 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 653B8C952AD18EEA008DD800 /* FacebookCore */; };
+		653B8C982AD18EEA008DD800 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 653B8C972AD18EEA008DD800 /* FacebookLogin */; };
+		653B8CA12AD1C2E1008DD800 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C9F2AD1C2E1008DD800 /* RootView.swift */; };
+		653B8CA22AD1C2E1008DD800 /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CA02AD1C2E1008DD800 /* RootViewModel.swift */; };
+		653B8CA42AD1C47E008DD800 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CA32AD1C47E008DD800 /* SessionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		653B8C342AD1875F008DD800 /* DRUMRE LAB1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DRUMRE LAB1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		653B8C372AD1875F008DD800 /* DRUMRE_LAB1App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRUMRE_LAB1App.swift; sourceTree = "<group>"; };
-		653B8C392AD1875F008DD800 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		653B8C3B2AD18760008DD800 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		653B8C3E2AD18760008DD800 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		653B8C4A2AD18A67008DD800 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		653B8C4C2AD18A67008DD800 /* Authorizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authorizable.swift; sourceTree = "<group>"; };
+		653B8C4D2AD18A67008DD800 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		653B8C4F2AD18A67008DD800 /* MockApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockApiResponse.swift; sourceTree = "<group>"; };
+		653B8C502AD18A67008DD800 /* ApiResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		653B8C512AD18A67008DD800 /* NetworkProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProvider.swift; sourceTree = "<group>"; };
+		653B8C522AD18A67008DD800 /* RequestMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMethod.swift; sourceTree = "<group>"; };
+		653B8C5B2AD18A7F008DD800 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		653B8C5C2AD18A7F008DD800 /* LocalStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		653B8C5D2AD18A7F008DD800 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		653B8C792AD18AE2008DD800 /* Publisher+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Publisher+Utility.swift"; sourceTree = "<group>"; };
+		653B8C7B2AD18AE2008DD800 /* Thread+debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Thread+debug.swift"; sourceTree = "<group>"; };
+		653B8C7C2AD18AE2008DD800 /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		653B8C7D2AD18AE2008DD800 /* URLSession+dataTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+dataTask.swift"; sourceTree = "<group>"; };
+		653B8C7E2AD18AE2008DD800 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
+		653B8C872AD18B5B008DD800 /* DispatchQueueFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueFactory.swift; sourceTree = "<group>"; };
+		653B8C882AD18B5B008DD800 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		653B8C892AD18B5B008DD800 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		653B8C8A2AD18B5B008DD800 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		653B8C992AD190A4008DD800 /* DRUMRE-LAB1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DRUMRE-LAB1-Info.plist"; sourceTree = SOURCE_ROOT; };
+		653B8C9F2AD1C2E1008DD800 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		653B8CA02AD1C2E1008DD800 /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
+		653B8CA32AD1C47E008DD800 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +74,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				653B8C982AD18EEA008DD800 /* FacebookLogin in Frameworks */,
+				653B8C942AD18EEA008DD800 /* FacebookBasics in Frameworks */,
+				653B8C922AD18EEA008DD800 /* FacebookAEM in Frameworks */,
+				653B8C862AD18B08008DD800 /* SwiftyBeaver in Frameworks */,
+				653B8C962AD18EEA008DD800 /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,10 +104,14 @@
 		653B8C362AD1875F008DD800 /* DRUMRE LAB1 */ = {
 			isa = PBXGroup;
 			children = (
-				653B8C372AD1875F008DD800 /* DRUMRE_LAB1App.swift */,
-				653B8C392AD1875F008DD800 /* ContentView.swift */,
-				653B8C3B2AD18760008DD800 /* Assets.xcassets */,
+				653B8C992AD190A4008DD800 /* DRUMRE-LAB1-Info.plist */,
 				653B8C3D2AD18760008DD800 /* Preview Content */,
+				653B8C8F2AD18B62008DD800 /* Utils */,
+				653B8C452AD18841008DD800 /* Resources */,
+				653B8C772AD18AE2008DD800 /* Extensions */,
+				653B8C492AD18A67008DD800 /* Network */,
+				653B8C5A2AD18A7F008DD800 /* Services */,
+				653B8C462AD18846008DD800 /* Modules */,
 			);
 			path = "DRUMRE LAB1";
 			sourceTree = "<group>";
@@ -65,6 +122,112 @@
 				653B8C3E2AD18760008DD800 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		653B8C452AD18841008DD800 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C3B2AD18760008DD800 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		653B8C462AD18846008DD800 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C372AD1875F008DD800 /* DRUMRE_LAB1App.swift */,
+				653B8C9C2AD1C2AB008DD800 /* Root */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		653B8C492AD18A67008DD800 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C4A2AD18A67008DD800 /* APIError.swift */,
+				653B8C4B2AD18A67008DD800 /* Endpoints */,
+				653B8C4E2AD18A67008DD800 /* Response */,
+				653B8C512AD18A67008DD800 /* NetworkProvider.swift */,
+				653B8C522AD18A67008DD800 /* RequestMethod.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		653B8C4B2AD18A67008DD800 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C4C2AD18A67008DD800 /* Authorizable.swift */,
+				653B8C4D2AD18A67008DD800 /* Endpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		653B8C4E2AD18A67008DD800 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C4F2AD18A67008DD800 /* MockApiResponse.swift */,
+				653B8C502AD18A67008DD800 /* ApiResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		653B8C5A2AD18A7F008DD800 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C5D2AD18A7F008DD800 /* Router.swift */,
+				653B8C5B2AD18A7F008DD800 /* Logger.swift */,
+				653B8C5C2AD18A7F008DD800 /* LocalStorage.swift */,
+				653B8CA32AD1C47E008DD800 /* SessionManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		653B8C772AD18AE2008DD800 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C782AD18AE2008DD800 /* Combine */,
+				653B8C7A2AD18AE2008DD800 /* Foundation */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		653B8C782AD18AE2008DD800 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C792AD18AE2008DD800 /* Publisher+Utility.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
+		653B8C7A2AD18AE2008DD800 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C7B2AD18AE2008DD800 /* Thread+debug.swift */,
+				653B8C7C2AD18AE2008DD800 /* Int+Extensions.swift */,
+				653B8C7D2AD18AE2008DD800 /* URLSession+dataTask.swift */,
+				653B8C7E2AD18AE2008DD800 /* Dictionary+Extensions.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		653B8C8F2AD18B62008DD800 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C882AD18B5B008DD800 /* Application.swift */,
+				653B8C8A2AD18B5B008DD800 /* Constants.swift */,
+				653B8C872AD18B5B008DD800 /* DispatchQueueFactory.swift */,
+				653B8C892AD18B5B008DD800 /* Storage.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		653B8C9C2AD1C2AB008DD800 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				653B8C9F2AD1C2E1008DD800 /* RootView.swift */,
+				653B8CA02AD1C2E1008DD800 /* RootViewModel.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +246,13 @@
 			dependencies = (
 			);
 			name = "DRUMRE LAB1";
+			packageProductDependencies = (
+				653B8C852AD18B08008DD800 /* SwiftyBeaver */,
+				653B8C912AD18EEA008DD800 /* FacebookAEM */,
+				653B8C932AD18EEA008DD800 /* FacebookBasics */,
+				653B8C952AD18EEA008DD800 /* FacebookCore */,
+				653B8C972AD18EEA008DD800 /* FacebookLogin */,
+			);
 			productName = "DRUMRE LAB1";
 			productReference = 653B8C342AD1875F008DD800 /* DRUMRE LAB1.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +281,10 @@
 				Base,
 			);
 			mainGroup = 653B8C2B2AD1875F008DD800;
+			packageReferences = (
+				653B8C842AD18B08008DD800 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
+				653B8C902AD18EEA008DD800 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+			);
 			productRefGroup = 653B8C352AD1875F008DD800 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +311,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				653B8C3A2AD1875F008DD800 /* ContentView.swift in Sources */,
+				653B8C6B2AD18A7F008DD800 /* LocalStorage.swift in Sources */,
+				653B8CA42AD1C47E008DD800 /* SessionManager.swift in Sources */,
+				653B8C8C2AD18B5B008DD800 /* Application.swift in Sources */,
 				653B8C382AD1875F008DD800 /* DRUMRE_LAB1App.swift in Sources */,
+				653B8C812AD18AE2008DD800 /* Int+Extensions.swift in Sources */,
+				653B8C822AD18AE2008DD800 /* URLSession+dataTask.swift in Sources */,
+				653B8C532AD18A67008DD800 /* APIError.swift in Sources */,
+				653B8C6C2AD18A7F008DD800 /* Router.swift in Sources */,
+				653B8C832AD18AE2008DD800 /* Dictionary+Extensions.swift in Sources */,
+				653B8CA22AD1C2E1008DD800 /* RootViewModel.swift in Sources */,
+				653B8C802AD18AE2008DD800 /* Thread+debug.swift in Sources */,
+				653B8C572AD18A67008DD800 /* ApiResponse.swift in Sources */,
+				653B8C562AD18A67008DD800 /* MockApiResponse.swift in Sources */,
+				653B8CA12AD1C2E1008DD800 /* RootView.swift in Sources */,
+				653B8C8D2AD18B5B008DD800 /* Storage.swift in Sources */,
+				653B8C6A2AD18A7F008DD800 /* Logger.swift in Sources */,
+				653B8C582AD18A67008DD800 /* NetworkProvider.swift in Sources */,
+				653B8C542AD18A67008DD800 /* Authorizable.swift in Sources */,
+				653B8C8B2AD18B5B008DD800 /* DispatchQueueFactory.swift in Sources */,
+				653B8C592AD18A67008DD800 /* RequestMethod.swift in Sources */,
+				653B8C552AD18A67008DD800 /* Endpoint.swift in Sources */,
+				653B8C7F2AD18AE2008DD800 /* Publisher+Utility.swift in Sources */,
+				653B8C8E2AD18B5B008DD800 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +470,7 @@
 				DEVELOPMENT_TEAM = FH74Y7RF3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DRUMRE-LAB1-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +500,7 @@
 				DEVELOPMENT_TEAM = FH74Y7RF3P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DRUMRE-LAB1-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +541,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		653B8C842AD18B08008DD800 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		653B8C902AD18EEA008DD800 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		653B8C852AD18B08008DD800 /* SwiftyBeaver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 653B8C842AD18B08008DD800 /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
+			productName = SwiftyBeaver;
+		};
+		653B8C912AD18EEA008DD800 /* FacebookAEM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 653B8C902AD18EEA008DD800 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookAEM;
+		};
+		653B8C932AD18EEA008DD800 /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 653B8C902AD18EEA008DD800 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		653B8C952AD18EEA008DD800 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 653B8C902AD18EEA008DD800 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		653B8C972AD18EEA008DD800 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 653B8C902AD18EEA008DD800 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 653B8C2C2AD1875F008DD800 /* Project object */;
 }

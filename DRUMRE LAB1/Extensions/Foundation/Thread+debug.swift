@@ -1,8 +1,8 @@
 //
-//  twenty-minutes-ios
+//  DRUMRE LAB1
 //  Thread+debug.swift
 //
-//  Aras Digital Products
+//  Andre Flego
 //
 
 import Foundation

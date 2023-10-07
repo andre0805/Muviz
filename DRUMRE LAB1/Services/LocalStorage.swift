@@ -1,13 +1,11 @@
 //
-//  twenty-minutes-ios
+//  DRUMRE LAB1
 //  LocalStorage.swift
 //
-//  Aras Digital Products
+//  Andre Flego
 //
 
 import Foundation
 
 enum LocalStorage {
-    @Storage(key: "ALERTED_VERSION", defaultValue: "0.1")
-    static var alertedVersion: String?
 }

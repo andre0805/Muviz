@@ -2,7 +2,7 @@
 //  RootViewModel.swift
 //  DRUMRE LAB1
 //
-//  Created by Andre Flego on 07.10.2023..
+//  Andre Flego
 //
 
 import Foundation
@@ -23,10 +23,17 @@ class RootViewModel: ObservableObject {
 extension RootViewModel {
     struct Input {
         let viewDidAppear = PassthroughSubject<Void, Never>()
+        let updateState = PassthroughSubject<RootViewState, Never>()
     }
 
     struct Output {
-        let title: String = ""
+        var state: RootViewState = .loading
+    }
+
+    enum RootViewState {
+        case loading
+        case authRequired
+        case home
     }
 }
 

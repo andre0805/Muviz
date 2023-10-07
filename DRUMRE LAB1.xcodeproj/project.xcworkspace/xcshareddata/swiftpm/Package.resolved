@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "facebook-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/facebook/facebook-ios-sdk",
+      "state" : {
+        "revision" : "c19607d535864533523d1f437c84035e5fb101cf",
+        "version" : "14.1.0"
+      }
+    },
+    {
+      "identity" : "swiftybeaver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
+      "state" : {
+        "revision" : "1080914828ef1c9ca9cd2bad50667b3d847dabff",
+        "version" : "2.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}

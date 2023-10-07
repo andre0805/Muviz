@@ -2,7 +2,7 @@
 //  RootView.swift
 //  DRUMRE LAB1
 //
-//  Created by Andre Flego on 07.10.2023..
+//  Andre Flego
 //
 
 import SwiftUI
@@ -17,11 +17,34 @@ struct RootView: View {
     
     var body: some View {
         Group {
-            Text(viewModel.output.title)
+            switch viewModel.output.state {
+            case .loading:
+                ProgressView()
+            case .authRequired:
+                loginView
+            case .home:
+                homeView
+            }
+
         }
         .onAppear {
             viewModel.input.viewDidAppear.send()
         }
+    }
+}
+
+// MARK: Views
+private extension RootView {
+    var loginView: some View {
+        Button {
+            print("🔥 login")
+        } label: {
+            Text("Login")
+        }
+    }
+
+    var homeView: some View {
+        Text("Home")
     }
 }
 

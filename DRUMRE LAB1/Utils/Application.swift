@@ -1,8 +1,8 @@
 //
-//  twenty-minutes-ios
+//  DRUMRE LAB1
 //  Application.swift
 //
-//  Aras Digital Products
+//  Andre Flego
 //
 
 import Foundation
@@ -29,15 +29,5 @@ enum Application {
 
     static var version: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-    }
-
-    static var startupProcesses: [StartupProcess] {
-        guard !Application.isRunningTests else { return [] }
-        return [
-            LoggerStartupProcess(),
-            GridelStartupProcess(),
-            FirebaseStartupProcess(),
-            RemoteConfigStartupProcess()
-        ]
     }
 }

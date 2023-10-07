@@ -1,8 +1,8 @@
 //
-//  twenty-minutes-ios
+//  DRUMRE LAB1
 //  Router.swift
 //
-//  Aras Digital Products
+//  Andre Flego
 //
 
 import SwiftUI
@@ -70,17 +70,6 @@ class Router<T: PushDestination, U: SheetDestination, V: SwitchDestination>: Obs
     func `switch`(to switchDestination: SwitchDestination) {
         reset()
         onSwitch?(switchDestination)
-    }
-
-    func handleDeeplinkTarget(_ deeplinkTarget: DeeplinkTarget) {
-        reset()
-
-        let destinations = deeplinkTarget.path.components(separatedBy: "/")
-        let data = deeplinkTarget.data
-
-        destinations.forEach { destination in
-            handleDeeplinkDestination(destination, with: data)
-        }
     }
 
     func handleDeeplinkDestination(_ destination: String, with data: [String: String]? = nil) {
