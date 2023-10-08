@@ -26,8 +26,13 @@ class SessionManager: ObservableObject {
         setUser(nil)
     }
 
-    func logIn() {
+    func logIn() -> AnyPublisher<Bool, FacebookError> {
         getFacebookUser()
+            .handleEvents(receiveOutput: { [unowned self] user in
+                setUser(user)
+            })
+            .map { $0 != nil }
+            .eraseToAnyPublisher()
     }
 }
 
@@ -41,39 +46,42 @@ private extension SessionManager {
 
 // MARK: Facebook
 private extension SessionManager {
-    func getFacebookUser() {
-        loginManager.logIn(
-            permissions: ["public_profile", "email"],
-            from: nil
-        ) { [unowned self] result, error in
-            if let error {
-                log.error("Facebook login error: \(error.localizedDescription)")
-                return
-            }
-
-            guard let result, !result.isCancelled else {
-                log.error("User cancelled Facebook login")
-                return
-            }
-
-            let request = GraphRequest(
-                graphPath: "me",
-                parameters: ["fields": "id, name, email"]
-            )
-
-            request.start { _, res, error in
+    func getFacebookUser() -> AnyPublisher<User?, FacebookError> {
+        Future { [unowned self] promise in
+            loginManager.logIn(
+                permissions: ["public_profile", "email"],
+                from: nil
+            ) { result, error in
                 if let error {
-                    log.error("Facebook login error: \(error.localizedDescription)")
+                    promise(.failure(.unknown(error)))
                     return
                 }
 
-                guard let data = res as? [String: Any], let user = User(from: data) else {
-                    log.error("Failed to create user from facebook data")
+                guard let result, !result.isCancelled else {
+                    promise(.failure(.cancelledLogin))
                     return
                 }
 
-                self.setUser(user)
+                let request = GraphRequest(
+                    graphPath: "me",
+                    parameters: ["fields": "id, name, email"]
+                )
+
+                request.start { _, res, error in
+                    if let error {
+                        promise(.failure(.unknown(error)))
+                        return
+                    }
+
+                    guard let data = res as? [String: Any], let user = User(from: data) else {
+                        promise(.failure(.invalidUserData))
+                        return
+                    }
+
+                    promise(.success(user))
+                }
             }
         }
+        .eraseToAnyPublisher()
     }
 }

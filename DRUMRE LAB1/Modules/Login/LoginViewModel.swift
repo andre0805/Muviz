@@ -14,7 +14,7 @@ class LoginViewModel: ObservableObject {
     private let sessionManager: SessionManager
 
     let input = Input()
-    @Published private(set) var output = Output()
+    @Published var output = Output()
 
     init(sessionManager: SessionManager) {
         self.sessionManager = sessionManager
@@ -31,6 +31,13 @@ extension LoginViewModel {
 
     struct Output {
         let title: String = "Login"
+        var isLoading = false
+        var errorMessage: String?
+        
+        var isAlertPresented: Bool {
+            get { errorMessage != nil }
+            set { if !newValue { errorMessage = nil } }
+        }
     }
 }
 
@@ -51,8 +58,19 @@ private extension LoginViewModel {
 
     func bindLoginButtonTapped() {
         input.loginButtonTapped
-            .sink { [unowned self] _ in
-                sessionManager.logIn()
+            .handleEvents(receiveOutput: { [unowned self] _ in
+                withAnimation {
+                    output.isLoading = true
+                }
+            })
+            .flatMap { [unowned self] _ in
+                loginUser()
+            }
+            .receive(on: DispatchQueueFactory.main)
+            .sink { [unowned self] success in
+                withAnimation {
+                    output.isLoading = success
+                }
             }
             .store(in: &cancellables)
     }
@@ -60,4 +78,14 @@ private extension LoginViewModel {
 
 // MARK: Functions
 private extension LoginViewModel {
+    func loginUser() -> AnyPublisher<Bool, Never> {
+        sessionManager.logIn()
+            .catch { [unowned self] error in
+                DispatchQueueFactory.main.async {
+                    self.output.errorMessage = (error != .cancelledLogin) ? error.message : nil
+                }
+                return Just(false)
+            }
+            .eraseToAnyPublisher()
+    }
 }

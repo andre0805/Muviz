@@ -42,6 +42,7 @@
 		653B8CAC2AD1D92D008DD800 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */; };
 		653B8CB02AD21829008DD800 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAE2AD21829008DD800 /* HomeView.swift */; };
 		653B8CB12AD21829008DD800 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAF2AD21829008DD800 /* HomeViewModel.swift */; };
+		654E113D2AD2CA7D0024008C /* FacebookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E113C2AD2CA7D0024008C /* FacebookError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		653B8CAE2AD21829008DD800 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		653B8CAF2AD21829008DD800 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		654E113C2AD2CA7D0024008C /* FacebookError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				653B8CA62AD1D0CF008DD800 /* User.swift */,
+				654E113C2AD2CA7D0024008C /* FacebookError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				653B8C552AD18A67008DD800 /* Endpoint.swift in Sources */,
 				653B8C7F2AD18AE2008DD800 /* Publisher+Utility.swift in Sources */,
 				653B8C8E2AD18B5B008DD800 /* Constants.swift in Sources */,
+				654E113D2AD2CA7D0024008C /* FacebookError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
