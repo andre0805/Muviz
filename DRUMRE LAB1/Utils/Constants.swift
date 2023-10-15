@@ -14,6 +14,10 @@ enum Constants {
         static let mockServerBaseUrl = ""
     }
 
+    enum FirebaseDatabase {
+        static let url = "https://drumre-lab1-24db3-default-rtdb.europe-west1.firebasedatabase.app"
+    }
+
     enum Deeplink {
         static let urlScheme = "twenty-minutes-app"
     }

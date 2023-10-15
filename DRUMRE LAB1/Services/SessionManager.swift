@@ -26,13 +26,8 @@ class SessionManager: ObservableObject {
         setUser(nil)
     }
 
-    func logIn() -> AnyPublisher<Bool, FacebookError> {
-        getFacebookUser()
-            .handleEvents(receiveOutput: { [unowned self] user in
-                setUser(user)
-            })
-            .map { $0 != nil }
-            .eraseToAnyPublisher()
+    func login(_ user: User) {
+        setUser(user)
     }
 }
 
@@ -45,7 +40,7 @@ private extension SessionManager {
 }
 
 // MARK: Facebook
-private extension SessionManager {
+extension SessionManager {
     func getFacebookUser() -> AnyPublisher<User?, FacebookError> {
         Future { [unowned self] promise in
             loginManager.logIn(

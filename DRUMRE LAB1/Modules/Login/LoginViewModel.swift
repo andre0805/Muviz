@@ -11,13 +11,13 @@ import Combine
 class LoginViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
-    private let sessionManager: SessionManager
+    private let loginRepository: LoginRepositoryProtocol
 
     let input = Input()
     @Published var output = Output()
 
-    init(sessionManager: SessionManager) {
-        self.sessionManager = sessionManager
+    init(loginRepository: LoginRepositoryProtocol) {
+        self.loginRepository = loginRepository
         bindInput()
     }
 }
@@ -79,7 +79,7 @@ private extension LoginViewModel {
 // MARK: Functions
 private extension LoginViewModel {
     func loginUser() -> AnyPublisher<Bool, Never> {
-        sessionManager.logIn()
+        loginRepository.loginFB()
             .catch { [unowned self] error in
                 DispatchQueueFactory.main.async {
                     self.output.errorMessage = (error != .cancelledLogin) ? error.message : nil

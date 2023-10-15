@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FacebookCore
+import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
@@ -14,6 +15,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         Logger.setup()
+        FirebaseApp.configure()
 
         return ApplicationDelegate.shared.application(
             application,

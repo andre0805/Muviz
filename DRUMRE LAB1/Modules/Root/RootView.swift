@@ -40,7 +40,12 @@ private extension RootView {
     var loginView: some View {
         NavigationStack {
             LoginView {
-                LoginViewModel(sessionManager: sessionManager)
+                LoginViewModel(
+                    loginRepository: LoginRepository(
+                        sessionManager: sessionManager,
+                        database: Database.shared
+                    )
+                )
             }
         }
     }

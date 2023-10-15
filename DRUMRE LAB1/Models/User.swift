@@ -11,11 +11,13 @@ struct User: Codable {
     let id: String
     let name: String
     let email: String
+    private(set) var userData: UserData?
 
-    init(id: String, name: String, email: String) {
+    init(id: String, name: String, email: String, userData: UserData? = nil) {
         self.id = id
         self.name = name
         self.email = email
+        self.userData = userData
     }
 
     init?(from data: [String: Any]) {
@@ -29,5 +31,15 @@ struct User: Codable {
         self.id = id
         self.name = name
         self.email = email
+        self.userData = nil
+    }
+
+    func toDictionary() -> [String: Any] {
+        [
+            "id": id,
+            "name": name,
+            "email": email,
+            "userData": userData?.toDictionary() ?? [:]
+        ]
     }
 }

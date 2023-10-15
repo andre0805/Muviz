@@ -64,7 +64,12 @@ private extension LoginView {
 #Preview {
     NavigationStack {
         LoginView {
-            LoginViewModel(sessionManager: .shared)
+            LoginViewModel(
+                loginRepository: LoginRepository(
+                    sessionManager: .shared,
+                    database: .shared
+                )
+            )
         }
     }
 }
