@@ -24,7 +24,11 @@ extension Database {
         Future { [unowned self] promise in
             let userRef = ref.child("users").child(userId)
             userRef.observeSingleEvent(of: .value) { snapshot in
-                let user = snapshot.value as? User
+                guard let data = snapshot.value as? [String: Any] else {
+                    promise(.success(nil))
+                    return
+                }
+                let user = User(from: data)
                 promise(.success(user))
             }
         }
@@ -32,6 +36,11 @@ extension Database {
     }
 
     func createUser(_ user: User) {
+        let userRef = ref.child("users").child(user.id)
+        userRef.setValue(user.toDictionary())
+    }
+
+    func updateUser(_ user: User) {
         let userRef = ref.child("users").child(user.id)
         userRef.setValue(user.toDictionary())
     }

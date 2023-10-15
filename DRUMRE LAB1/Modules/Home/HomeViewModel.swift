@@ -11,14 +11,14 @@ import Combine
 class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
-    private let sessionManager: SessionManager
+    private let homeRepository: HomeRepositoryProtocol
 
     let input = Input()
     @Published private(set) var output: Output
 
-    init(sessionManager: SessionManager) {
-        self.sessionManager = sessionManager
-        self.output = Output(user: sessionManager.currentUser ?? User(id: "1", name: "Andre", email: "ade.flego@gmail.com"))
+    init(homeRepository: HomeRepositoryProtocol) {
+        self.homeRepository = homeRepository
+        self.output = Output(user: homeRepository.sessionManager.currentUser)
         bindInput()
     }
 }
@@ -28,11 +28,12 @@ extension HomeViewModel {
     struct Input {
         let viewDidAppear = PassthroughSubject<Void, Never>()
         let logoutButtonTapped = PassthroughSubject<Void, Never>()
+        let updateUserButtonTapped = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
         let title: String = "Home"
-        let user: User
+        let user: User!
     }
 }
 
@@ -41,6 +42,7 @@ private extension HomeViewModel {
     func bindInput() {
         bindViewDidAppear()
         bindLogoutButtonTapped()
+        bindUpdateUserButtonTapped()
     }
 
     func bindViewDidAppear() {
@@ -54,7 +56,15 @@ private extension HomeViewModel {
     func bindLogoutButtonTapped() {
         input.logoutButtonTapped
             .sink { [unowned self] _ in
-                sessionManager.logOut()
+                homeRepository.logout()
+            }
+            .store(in: &cancellables)
+    }
+
+    func bindUpdateUserButtonTapped() {
+        input.updateUserButtonTapped
+            .sink { [unowned self] _ in
+                homeRepository.updateUser()
             }
             .store(in: &cancellables)
     }

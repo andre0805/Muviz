@@ -53,7 +53,12 @@ private extension RootView {
     var homeView: some View {
         NavigationStack {
             HomeView {
-                HomeViewModel(sessionManager: sessionManager)
+                HomeViewModel(
+                    homeRepository: HomeRepository(
+                        sessionManager: .shared,
+                        database: .shared
+                    )
+                )
             }
         }
     }

@@ -31,6 +31,18 @@ struct HomeView: View {
                     .background(Color(red: 8/255, green: 102/255, blue: 255/255))
                     .clipShape(Capsule())
             }
+
+            Button {
+                viewModel.input.updateUserButtonTapped.send()
+            } label: {
+                Text("Update user")
+                    .bold()
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .foregroundStyle(.white)
+                    .background(Color(red: 8/255, green: 102/255, blue: 255/255))
+                    .clipShape(Capsule())
+            }
         }
         .navigationTitle(viewModel.output.title)
         .onAppear {
@@ -42,7 +54,12 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView {
-            HomeViewModel(sessionManager: .shared)
+            HomeViewModel(
+                homeRepository: HomeRepository(
+                    sessionManager: .shared,
+                    database: .shared
+                )
+            )
         }
     }
 }

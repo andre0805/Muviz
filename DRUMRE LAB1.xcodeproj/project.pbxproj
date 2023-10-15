@@ -50,6 +50,7 @@
 		6558EF922ADC1B11006BB582 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558EF912ADC1B11006BB582 /* Database.swift */; };
 		6558EF942ADC25B3006BB582 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558EF932ADC25B3006BB582 /* LoginRepository.swift */; };
 		6558EF962ADC2C7D006BB582 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6558EF952ADC2C7D006BB582 /* UserData.swift */; };
+		656FB3C32ADC719A00112E5F /* HomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656FB3C22ADC719A00112E5F /* HomeRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +91,7 @@
 		6558EF912ADC1B11006BB582 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		6558EF932ADC25B3006BB582 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
 		6558EF952ADC2C7D006BB582 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		656FB3C22ADC719A00112E5F /* HomeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,7 @@
 			children = (
 				653B8CAE2AD21829008DD800 /* HomeView.swift */,
 				653B8CAF2AD21829008DD800 /* HomeViewModel.swift */,
+				656FB3C22ADC719A00112E5F /* HomeRepository.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				653B8C812AD18AE2008DD800 /* Int+Extensions.swift in Sources */,
 				653B8C822AD18AE2008DD800 /* URLSession+dataTask.swift in Sources */,
 				653B8C532AD18A67008DD800 /* APIError.swift in Sources */,
+				656FB3C32ADC719A00112E5F /* HomeRepository.swift in Sources */,
 				653B8C6C2AD18A7F008DD800 /* Router.swift in Sources */,
 				653B8CAC2AD1D92D008DD800 /* LoginViewModel.swift in Sources */,
 				653B8C832AD18AE2008DD800 /* Dictionary+Extensions.swift in Sources */,
