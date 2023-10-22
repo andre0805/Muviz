@@ -51,16 +51,7 @@ private extension RootView {
     }
 
     var homeView: some View {
-        NavigationStack {
-            HomeView {
-                HomeViewModel(
-                    homeRepository: HomeRepository(
-                        sessionManager: .shared,
-                        database: .shared
-                    )
-                )
-            }
-        }
+        HomeRouterView(homeRouter: HomeRouter())
     }
 }
 

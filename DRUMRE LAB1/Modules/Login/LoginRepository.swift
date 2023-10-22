@@ -40,7 +40,7 @@ class LoginRepository: LoginRepositoryProtocol {
     private func createNewUserIfNeeded(_ fbUser: User) -> AnyPublisher<User?, Never> {
         database.getUser(for: fbUser.id)
             .flatMap { [unowned self] user -> AnyPublisher<User?, Never> in
-                if let user {
+                if let user, user != fbUser {
                     return Just(user).eraseToAnyPublisher()
                 } else {
                     database.createUser(fbUser)

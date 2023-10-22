@@ -12,3 +12,7 @@ struct UserData: Codable {
         [:]
     }
 }
+
+extension UserData: Equatable {
+    
+}

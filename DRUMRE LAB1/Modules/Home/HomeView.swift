@@ -14,39 +14,47 @@ struct HomeView: View {
     init(_ viewModel: @escaping () -> HomeViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel())
     }
-    
+
     var body: some View {
         VStack(spacing: 16) {
-            Text("Logged in as: \(viewModel.output.user.email)")
-                .bold()
-
-            Button {
-                viewModel.input.logoutButtonTapped.send()
-            } label: {
-                Text("Logout")
-                    .bold()
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .foregroundStyle(.white)
-                    .background(Color(red: 8/255, green: 102/255, blue: 255/255))
-                    .clipShape(Capsule())
-            }
-
-            Button {
-                viewModel.input.updateUserButtonTapped.send()
-            } label: {
-                Text("Update user")
-                    .bold()
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .foregroundStyle(.white)
-                    .background(Color(red: 8/255, green: 102/255, blue: 255/255))
-                    .clipShape(Capsule())
-            }
         }
         .navigationTitle(viewModel.output.title)
+        .toolbar {
+            toolbarView
+        }
         .onAppear {
             viewModel.input.viewDidAppear.send()
+        }
+    }
+}
+
+// MARK: Views
+private extension HomeView {
+    var toolbarView: some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                viewModel.input.userButtonTapped.send()
+            } label: {
+                let imageUrl = URL(string: viewModel.output.user?.imageUrl ?? "")
+                AsyncImage(url: imageUrl) { image in
+                    image
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                } placeholder: {
+                    let initials = viewModel.output.user?.name
+                        .split(separator: " ")
+                        .compactMap { $0.first}
+                        .map { String($0) }
+                        .joined()
+
+                    Text(initials ?? "ME")
+                        .font(.system(size: 16))
+                        .padding(8)
+                        .foregroundStyle(.white)
+                        .background(.blue)
+                }
+                .clipShape(Circle())
+            }
         }
     }
 }
@@ -55,6 +63,7 @@ struct HomeView: View {
     NavigationStack {
         HomeView {
             HomeViewModel(
+                router: HomeRouter(),
                 homeRepository: HomeRepository(
                     sessionManager: .shared,
                     database: .shared

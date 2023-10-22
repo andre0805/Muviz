@@ -59,7 +59,7 @@ extension SessionManager {
 
                 let request = GraphRequest(
                     graphPath: "me",
-                    parameters: ["fields": "id, name, email"]
+                    parameters: ["fields": "id, name, email, picture.type(large)"]
                 )
 
                 request.start { _, res, error in
@@ -68,7 +68,7 @@ extension SessionManager {
                         return
                     }
 
-                    guard let data = res as? [String: Any], let user = User(from: data) else {
+                    guard let data = res as? [String: Any], let user = self.createUser(from: data) else {
                         promise(.failure(.invalidUserData))
                         return
                     }
@@ -78,5 +78,23 @@ extension SessionManager {
             }
         }
         .eraseToAnyPublisher()
+    }
+}
+
+private extension SessionManager {
+    func createUser(from fbData: [String: Any]) -> User? {
+        guard
+            let id = fbData["id"] as? String,
+            let name = fbData["name"] as? String,
+            let email = fbData["email"] as? String
+        else {
+            return nil
+        }
+
+        let picture = fbData["picture"] as? [String: Any]
+        let pictureData = picture?["data"] as? [String: Any]
+        let pictureUrl = pictureData?["url"] as? String
+
+        return User(id: id, name: name, email: email, imageUrl: pictureUrl, userData: nil)
     }
 }

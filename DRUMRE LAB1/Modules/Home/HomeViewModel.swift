@@ -11,12 +11,14 @@ import Combine
 class HomeViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
+    private let homeRouter: HomeRouter
     private let homeRepository: HomeRepositoryProtocol
 
     let input = Input()
     @Published private(set) var output: Output
 
-    init(homeRepository: HomeRepositoryProtocol) {
+    init(router: HomeRouter, homeRepository: HomeRepositoryProtocol) {
+        self.homeRouter = router
         self.homeRepository = homeRepository
         self.output = Output(user: homeRepository.sessionManager.currentUser)
         bindInput()
@@ -27,13 +29,14 @@ class HomeViewModel: ObservableObject {
 extension HomeViewModel {
     struct Input {
         let viewDidAppear = PassthroughSubject<Void, Never>()
+        let userButtonTapped = PassthroughSubject<Void, Never>()
         let logoutButtonTapped = PassthroughSubject<Void, Never>()
         let updateUserButtonTapped = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
         let title: String = "Home"
-        let user: User!
+        let user: User?
     }
 }
 
@@ -41,6 +44,7 @@ extension HomeViewModel {
 private extension HomeViewModel {
     func bindInput() {
         bindViewDidAppear()
+        bindUserButtonTapped()
         bindLogoutButtonTapped()
         bindUpdateUserButtonTapped()
     }
@@ -49,6 +53,15 @@ private extension HomeViewModel {
         input.viewDidAppear
             .prefix(1)
             .sink {
+            }
+            .store(in: &cancellables)
+    }
+
+    func bindUserButtonTapped() {
+        input.userButtonTapped
+            .sink { [unowned self] _ in
+                guard let user = output.user else { return }
+                homeRouter.present(.userInfo(user))
             }
             .store(in: &cancellables)
     }

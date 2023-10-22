@@ -42,6 +42,8 @@
 		653B8CAC2AD1D92D008DD800 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */; };
 		653B8CB02AD21829008DD800 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAE2AD21829008DD800 /* HomeView.swift */; };
 		653B8CB12AD21829008DD800 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8CAF2AD21829008DD800 /* HomeViewModel.swift */; };
+		6541A07E2AE5A1E8007310B5 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6541A07D2AE5A1E8007310B5 /* HomeRouter.swift */; };
+		6541A0802AE5A1F2007310B5 /* HomeRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6541A07F2AE5A1F2007310B5 /* HomeRouterView.swift */; };
 		654E113D2AD2CA7D0024008C /* FacebookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654E113C2AD2CA7D0024008C /* FacebookError.swift */; };
 		6558EF892ADC13E2006BB582 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6558EF882ADC13E2006BB582 /* GoogleService-Info.plist */; };
 		6558EF8C2ADC14BC006BB582 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 6558EF8B2ADC14BC006BB582 /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -86,6 +88,8 @@
 		653B8CAA2AD1D92D008DD800 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		653B8CAE2AD21829008DD800 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		653B8CAF2AD21829008DD800 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		6541A07D2AE5A1E8007310B5 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		6541A07F2AE5A1F2007310B5 /* HomeRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouterView.swift; sourceTree = "<group>"; };
 		654E113C2AD2CA7D0024008C /* FacebookError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookError.swift; sourceTree = "<group>"; };
 		6558EF882ADC13E2006BB582 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6558EF912ADC1B11006BB582 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -286,6 +290,8 @@
 		653B8CAD2AD2181C008DD800 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				6541A07D2AE5A1E8007310B5 /* HomeRouter.swift */,
+				6541A07F2AE5A1F2007310B5 /* HomeRouterView.swift */,
 				653B8CAE2AD21829008DD800 /* HomeView.swift */,
 				653B8CAF2AD21829008DD800 /* HomeViewModel.swift */,
 				656FB3C22ADC719A00112E5F /* HomeRepository.swift */,
@@ -386,6 +392,7 @@
 				653B8CA42AD1C47E008DD800 /* SessionManager.swift in Sources */,
 				653B8C8C2AD18B5B008DD800 /* Application.swift in Sources */,
 				653B8C382AD1875F008DD800 /* DRUMRE_LAB1App.swift in Sources */,
+				6541A0802AE5A1F2007310B5 /* HomeRouterView.swift in Sources */,
 				653B8C812AD18AE2008DD800 /* Int+Extensions.swift in Sources */,
 				653B8C822AD18AE2008DD800 /* URLSession+dataTask.swift in Sources */,
 				653B8C532AD18A67008DD800 /* APIError.swift in Sources */,
@@ -404,6 +411,7 @@
 				653B8C6A2AD18A7F008DD800 /* Logger.swift in Sources */,
 				653B8C582AD18A67008DD800 /* NetworkProvider.swift in Sources */,
 				653B8C542AD18A67008DD800 /* Authorizable.swift in Sources */,
+				6541A07E2AE5A1E8007310B5 /* HomeRouter.swift in Sources */,
 				653B8C8B2AD18B5B008DD800 /* DispatchQueueFactory.swift in Sources */,
 				653B8C592AD18A67008DD800 /* RequestMethod.swift in Sources */,
 				653B8CB12AD21829008DD800 /* HomeViewModel.swift in Sources */,
