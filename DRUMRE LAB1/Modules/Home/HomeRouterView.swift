@@ -22,12 +22,24 @@ struct HomeRouterView: View {
                     router: homeRouter,
                     homeRepository: HomeRepository(
                         sessionManager: sessionManager,
-                        database: .shared
+                        database: .shared,
+                        theMovieDB: TheMovieDB()
                     )
                 )
             }
-            .navigationDestination(for: HomePushDestination.self) { sheet in
-                EmptyView()
+            .navigationDestination(for: HomePushDestination.self) { destination in
+                switch destination {
+                case .movieDetails(let movie):
+                    MovieDetailsView {
+                        MovieDetailsViewModel(
+                            movie: movie,
+                            movieDetailsRepository: MovieDetailsRepository(
+                                sessionManager: .shared,
+                                database: .shared
+                            )
+                        )
+                    }
+                }
             }
             .sheet(item: $homeRouter.sheet) { sheet in
                 sheetView(for: sheet)

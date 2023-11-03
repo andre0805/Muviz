@@ -95,6 +95,6 @@ private extension SessionManager {
         let pictureData = picture?["data"] as? [String: Any]
         let pictureUrl = pictureData?["url"] as? String
 
-        return User(id: id, name: name, email: email, imageUrl: pictureUrl, userData: nil)
+        return User(id: id, name: name, email: email, imageUrl: pictureUrl)
     }
 }

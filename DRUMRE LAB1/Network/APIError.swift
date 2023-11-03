@@ -9,14 +9,9 @@ import Foundation
 
 enum APIError: Error {
     case unknown(Error)
+    case invalidURL
+    case invalidData
+    case invalidBody
+    case invalidResponse
     case decoderFailed
-
-    var message: String {
-        switch self {
-        case .unknown(let error):
-            return "Unknown error: \(error.localizedDescription)"
-        case .decoderFailed:
-            return "Error: Can't create model from response"
-        }
-    }
 }

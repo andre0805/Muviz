@@ -12,22 +12,21 @@ struct User: Codable {
     let name: String
     let email: String
     let imageUrl: String?
-    var userData: UserData?
+    var favoriteMovies: [Movie] = []
 
-    init(id: String, name: String, email: String, imageUrl: String? = nil, userData: UserData? = nil) {
+    init(id: String, name: String, email: String, imageUrl: String? = nil, favoriteMovies: [Movie] = []) {
         self.id = id
         self.name = name
         self.email = email
         self.imageUrl = imageUrl
-        self.userData = userData
+        self.favoriteMovies = favoriteMovies
     }
 
     init?(from data: [String: Any])  {
         guard
             let id = data["id"] as? String,
             let name = data["name"] as? String,
-            let email = data["email"] as? String,
-            let imageUrl = data["imageUrl"] as? String
+            let email = data["email"] as? String
         else {
             return nil
         }
@@ -35,8 +34,16 @@ struct User: Codable {
         self.id = id
         self.name = name
         self.email = email
-        self.imageUrl = imageUrl
-        self.userData = nil
+        self.imageUrl = data["imageUrl"] as? String
+        self.favoriteMovies = data["favoriteMovies"] as? [Movie] ?? []
+    }
+
+    mutating func addMovieToFavorites(_ movie: Movie) {
+        favoriteMovies.append(movie)
+    }
+
+    mutating func removeMovieFromFavorites(_ movie: Movie) {
+        favoriteMovies.removeAll(where: { $0 == movie })
     }
 
     func toDictionary() -> [String: Any] {
@@ -45,7 +52,7 @@ struct User: Codable {
             "name": name,
             "email": email,
             "imageUrl": imageUrl ?? "",
-            "userData": userData?.toDictionary() ?? [:]
+            "favoriteMovies": favoriteMovies.map { $0.toDictionary() }
         ]
     }
 }
@@ -56,6 +63,6 @@ extension User: Equatable {
         lhs.name == rhs.name &&
         lhs.email == rhs.email &&
         lhs.imageUrl == rhs.imageUrl &&
-        lhs.userData == rhs.userData
+        lhs.favoriteMovies == rhs.favoriteMovies
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 enum HomePushDestination: PushDestination {
-
+    case movieDetails(Movie)
 }
 
 enum HomeSheetDestination: SheetDestination {
