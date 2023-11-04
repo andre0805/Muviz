@@ -80,18 +80,6 @@ extension User {
         name: "Andre Flego",
         email: "andre.flego@fer.hr",
         imageUrl: "https://cdn-icons-png.flaticon.com/512/666/666201.png",
-        favoriteMovies: [
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock,
-            .mock
-        ]
+        favoriteMovies: .mock
     )
 }
