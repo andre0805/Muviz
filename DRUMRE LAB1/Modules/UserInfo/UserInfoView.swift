@@ -43,15 +43,28 @@ private extension UserInfoView {
     }
 
     var favoriteMovies: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(spacing: 8) {
             Text("Favorite movies")
                 .font(.title)
                 .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
             let movies = viewModel.output.user.favoriteMovies.sorted(by: { $0.title < $1.title })
 
-            MovieList(movies: movies) { movie in
-                viewModel.input.movieTapped.send(movie)
+            if movies.isEmpty {
+                Spacer()
+
+                Text("Bwoah, looks like you don't have any favorite movies 😬")
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.gray)
+                    .frame(width: 300, alignment: .center)
+
+                Spacer()
+                Spacer()
+            } else {
+                MovieList(movies: movies) { movie in
+                    viewModel.input.movieTapped.send(movie)
+                }
             }
         }
     }
