@@ -8,7 +8,7 @@
 import Combine
 import FirebaseDatabase
 
-class Database {
+class Database: ObservableObject {
     static let shared = Database()
 
     private let ref: DatabaseReference!

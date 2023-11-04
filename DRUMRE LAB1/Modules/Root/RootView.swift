@@ -12,6 +12,7 @@ struct RootView: View {
     @StateObject private var viewModel: RootViewModel
 
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var database: Database
 
     init(_ viewModel: @escaping () -> RootViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel())
@@ -43,7 +44,7 @@ private extension RootView {
                 LoginViewModel(
                     loginRepository: LoginRepository(
                         sessionManager: sessionManager,
-                        database: Database.shared
+                        database: database
                     )
                 )
             }
@@ -57,7 +58,7 @@ private extension RootView {
 
 #Preview {
     RootView {
-        RootViewModel(sessionManager: .shared)
+        RootViewModel(sessionManager: .shared, database: .shared)
     }
 }
 

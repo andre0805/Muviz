@@ -57,6 +57,7 @@ private extension MovieDetailsView {
             }
             .padding(.vertical, 12)
             .padding(.horizontal)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.white)
             .clipShape(
                 UnevenRoundedRectangle(cornerRadii: .init(topLeading: 10, topTrailing: 10))

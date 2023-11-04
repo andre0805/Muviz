@@ -28,7 +28,7 @@ class HomeViewModel: ObservableObject {
     ) {
         self.homeRouter = router
         self.homeRepository = homeRepository
-        self.output = Output(user: homeRepository.sessionManager.currentUser)
+        self.output = Output(user: homeRepository.sessionManager.currentUser ?? .mock)
         bindInput()
     }
 }
@@ -45,7 +45,7 @@ extension HomeViewModel {
 
     struct Output {
         let title: String = "Home"
-        let user: User?
+        let user: User
         var movies: [Movie] = []
         var genres: [Genre] = []
         var selectedGenre: Genre?
@@ -93,8 +93,7 @@ private extension HomeViewModel {
     func bindUserButtonTapped() {
         input.userButtonTapped
             .sink { [unowned self] _ in
-                guard let user = output.user else { return }
-                homeRouter.present(.userInfo(user))
+                homeRouter.present(.userInfo)
 //                getJson()
             }
             .store(in: &cancellables)

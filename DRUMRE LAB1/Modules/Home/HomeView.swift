@@ -21,10 +21,17 @@ struct HomeView: View {
                 ProgressView()
             } else {
                 genreList
-                movieList
+                    .transition(.move(edge: .leading))
+
+                MovieList(movies: viewModel.output.movies) { movie in
+                    viewModel.input.movieTapped.send(movie)
+                }
+                .transition(.move(edge: .bottom))
+
                 Spacer()
             }
         }
+        .ignoresSafeArea(edges: .bottom)
         .padding(.horizontal)
         .navigationTitle(viewModel.output.title)
         .toolbar {
@@ -66,76 +73,38 @@ private extension HomeView {
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 
-    var movieList: some View {
-        List(viewModel.output.movies, id: \.id) { movie in
-            movieView(for: movie)
-                .listRowSeparator(.hidden)
-        }
-        .listStyle(.plain)
-        .padding(.horizontal, -20)
-    }
-
-    @ViewBuilder
-    func movieView(for movie: Movie) -> some View {
-        Button {
-            viewModel.input.movieTapped.send(movie)
-        } label: {
-            HStack(spacing: 16) {
-                AsyncImage(url: URL(string: movie.imageUrl)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 70, height: 100)
-
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(movie.title)
-                        .font(.system(size: 22, weight: .medium))
-
-                    Text(movie.description)
-                        .font(.system(size: 14, weight: .light))
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-
-                Image(.chevronRight)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 16, height: 16)
-            }
-            .frame(height: 100)
-        }
-        .buttonStyle(.plain)
-    }
-
     var toolbarView: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {
                 viewModel.input.userButtonTapped.send()
             } label: {
-                let imageUrl = URL(string: viewModel.output.user?.imageUrl ?? "")
-                AsyncImage(url: imageUrl) { image in
-                    image
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                } placeholder: {
-                    let initials = viewModel.output.user?.name
-                        .split(separator: " ")
-                        .compactMap { $0.first}
-                        .map { String($0) }
-                        .joined()
-
-                    Text(initials ?? "ME")
-                        .font(.system(size: 16))
-                        .padding(8)
-                        .foregroundStyle(.white)
-                        .background(.blue)
-                }
-                .clipShape(Circle())
+                profileImage
             }
         }
+    }
+
+    @ViewBuilder
+    var profileImage: some View {
+        let imageUrl = URL(string: viewModel.output.user.imageUrl ?? "")
+        
+        AsyncImage(url: imageUrl) { image in
+            image
+                .resizable()
+                .frame(width: 32, height: 32)
+        } placeholder: {
+            let initials = viewModel.output.user.name
+                .split(separator: " ")
+                .compactMap { $0.first}
+                .map { String($0) }
+                .joined()
+
+            Text(initials)
+                .font(.system(size: 16))
+                .padding(8)
+                .foregroundStyle(.white)
+                .background(.blue)
+        }
+        .clipShape(Circle())
     }
 }
 

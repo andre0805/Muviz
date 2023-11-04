@@ -16,6 +16,46 @@ struct Movie: Codable, Hashable {
     let imageUrl: String
     var genres: [Genre]
 
+    init(
+        id: Int,
+        title: String,
+        description: String,
+        language: String,
+        year: Int,
+        imageUrl: String,
+        genres: [Genre]
+    ) {
+        self.id = id
+        self.title = title
+        self.description = description
+        self.language = language
+        self.year = year
+        self.imageUrl = imageUrl
+        self.genres = genres
+    }
+
+    init?(from data: [String: Any]) {
+        guard
+            let id = data["id"] as? Int,
+            let title = data["title"] as? String,
+            let description = data["description"] as? String,
+            let language = data["language"] as? String,
+            let year = data["year"] as? Int,
+            let imageUrl = data["imageUrl"] as? String,
+            let genresData = data["genres"] as? [[String: Any]]
+        else {
+            return nil
+        }
+
+        self.id = id
+        self.title = title
+        self.description = description
+        self.language = language
+        self.year = year
+        self.imageUrl = imageUrl
+        self.genres = genresData.compactMap { Genre(from: $0) }
+    }
+
     func toDictionary() -> [String: Any] {
         [
             "id": id,
@@ -28,10 +68,10 @@ struct Movie: Codable, Hashable {
         ]
     }
 
-    static let mock: Movie = Movie(
+    static let mock = Movie(
         id: 1,
         title: "Titanic",
-        description: "A timeless romance and disaster film directed by James Cameron. It tells the story of Jack and Rose, two passengers from different social classes who fall in love during the ill-fated maiden voyage of the RMS Titanic. Their love is tested as the ship collides with an iceberg, leading to a tragic and heroic struggle for survival. The film combines a captivating love story with the real historical events of the Titanic's sinking, creating an emotional and visually stunning cinematic experience.",
+        description: "A timeless romance and disaster",
         language: "English",
         year: 1912,
         imageUrl: "https://m.media-amazon.com/images/I/811lT7khIrL._SY679_.jpg",

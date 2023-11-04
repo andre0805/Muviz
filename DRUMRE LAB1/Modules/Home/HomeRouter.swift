@@ -12,10 +12,11 @@ enum HomePushDestination: PushDestination {
 }
 
 enum HomeSheetDestination: SheetDestination {
-    case userInfo(User)
+    case userInfo
     
     var id: String {
-        UUID().uuidString
+//        UUID().uuidString
+        ""
     }
 }
 

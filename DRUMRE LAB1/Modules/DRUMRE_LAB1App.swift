@@ -29,13 +29,15 @@ struct DRUMRE_LAB1App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     @StateObject var sessionManager = SessionManager.shared
+    @StateObject var database = Database.shared
 
     var body: some Scene {
         WindowGroup {
             RootView {
-                RootViewModel(sessionManager: sessionManager)
+                RootViewModel(sessionManager: sessionManager, database: database)
             }
             .environmentObject(sessionManager)
+            .environmentObject(database)
             .onOpenURL { url in
                 ApplicationDelegate.shared.application(
                     UIApplication.shared,

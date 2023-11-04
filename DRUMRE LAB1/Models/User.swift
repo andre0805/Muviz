@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Codable {
+struct User: Codable, Identifiable {
     let id: String
     let name: String
     let email: String
@@ -35,15 +35,9 @@ struct User: Codable {
         self.name = name
         self.email = email
         self.imageUrl = data["imageUrl"] as? String
-        self.favoriteMovies = data["favoriteMovies"] as? [Movie] ?? []
-    }
-
-    mutating func addMovieToFavorites(_ movie: Movie) {
-        favoriteMovies.append(movie)
-    }
-
-    mutating func removeMovieFromFavorites(_ movie: Movie) {
-        favoriteMovies.removeAll(where: { $0 == movie })
+        
+        let favoriteMoviesData = data["favoriteMovies"] as? [[String: Any]] ?? []
+        self.favoriteMovies = favoriteMoviesData.compactMap { Movie(from: $0) }
     }
 
     func toDictionary() -> [String: Any] {
@@ -57,6 +51,7 @@ struct User: Codable {
     }
 }
 
+// MARK: Equatable
 extension User: Equatable {
     static func ==(lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id &&
@@ -65,4 +60,38 @@ extension User: Equatable {
         lhs.imageUrl == rhs.imageUrl &&
         lhs.favoriteMovies == rhs.favoriteMovies
     }
+}
+
+// MARK: Favorite movies
+extension User {
+    mutating func addMovieToFavorites(_ movie: Movie) {
+        favoriteMovies.append(movie)
+    }
+
+    mutating func removeMovieFromFavorites(_ movie: Movie) {
+        favoriteMovies.removeAll(where: { $0 == movie })
+    }
+}
+
+// MARK: Mocks
+extension User {
+    static let mock = User(
+        id: "1",
+        name: "Andre Flego",
+        email: "andre.flego@fer.hr",
+        imageUrl: "https://cdn-icons-png.flaticon.com/512/666/666201.png",
+        favoriteMovies: [
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock,
+            .mock
+        ]
+    )
 }

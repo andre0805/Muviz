@@ -59,7 +59,7 @@ extension SessionManager {
 
                 let request = GraphRequest(
                     graphPath: "me",
-                    parameters: ["fields": "id, name, email, picture.type(large)"]
+                    parameters: ["fields": "id, name, email, picture"]
                 )
 
                 request.start { _, res, error in

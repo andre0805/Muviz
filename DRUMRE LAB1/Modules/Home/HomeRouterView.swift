@@ -16,7 +16,7 @@ struct HomeRouterView: View {
     }
 
     var body: some View {
-        NavigationStack(path: $homeRouter.navigationPath) {
+        NavigationStack(path: $homeRouter.navigationPath) { [unowned homeRouter] in
             HomeView {
                 HomeViewModel(
                     router: homeRouter,
@@ -53,24 +53,17 @@ struct HomeRouterView: View {
     @ViewBuilder
     private func sheetView(for sheet: HomeSheetDestination) -> some View {
         switch sheet {
-        case .userInfo(let user):
-            VStack {
-                Text("Logged in as: \(user.name)")
-                    .bold()
-
-                Button {
-                    homeRouter.reset()
-                    sessionManager.logOut()
-                } label: {
-                    Text("Logout")
-                        .bold()
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .foregroundStyle(.white)
-                        .background(Color(red: 8/255, green: 102/255, blue: 255/255))
-                        .clipShape(Capsule())
-                }
-            }
+        case .userInfo:
+            UserInfoRouterView(
+                userInfoRouter: UserInfoRouter(
+                    onSwitch: { destination in
+                        switch destination {
+                        case .home:
+                            homeRouter.dismiss()
+                        }
+                    }
+                )
+            )
         }
     }
 }
