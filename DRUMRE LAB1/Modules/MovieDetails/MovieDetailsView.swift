@@ -91,7 +91,7 @@ private extension MovieDetailsView {
     var year: some View {
         movieDetailView(
             title: "Year",
-            value: String(movie.year)
+            value: movie.year
         )
     }
 
@@ -124,19 +124,16 @@ private extension MovieDetailsView {
     }
 }
 
-struct MovieDetailsPreviews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            MovieDetailsView {
-                MovieDetailsViewModel(
-                    movie: .mock,
-                    movieDetailsRepository: MovieDetailsRepository(
-                        sessionManager: .shared,
-                        database: .shared
-                    )
+#Preview {
+    NavigationStack {
+        MovieDetailsView {
+            MovieDetailsViewModel(
+                movie: .mock,
+                movieDetailsRepository: MovieDetailsRepository(
+                    sessionManager: .shared,
+                    database: .shared
                 )
-            }
+            )
         }
     }
 }
-

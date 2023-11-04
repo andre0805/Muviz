@@ -20,11 +20,11 @@ struct TMDBMovie: Codable, Hashable {
 extension TMDBMovie {
     func mapToDomainModel(withGenres genres: [TMDBGenre] = []) -> Movie {
         .init(
-            id: id,
+            id: String(id),
             title: title,
             description: overview,
             language: getLanguage(for: originalLanguage),
-            year: Int(releaseDate.prefix(4)) ?? 0,
+            year: String(releaseDate.prefix(4)),
             imageUrl: Constants.TheMovieDB.imageBaseURL + posterPath,
             genres: getGenres(from: genres)
         )

@@ -8,8 +8,8 @@
 import Foundation
 
 enum DispatchQueueFactory {
-    private static let defaultLabel = "co.arasdigital.twenty-minutes.default"
-    private static let networkingLabel = "co.arasdigital.twenty-minutes.networking"
+    private static let defaultLabel = "com.andreflego.drumre-lab1.default"
+    private static let networkingLabel = "com.andreflego.drumre-lab1.networking"
 
     static var main: DispatchQueue {
         return DispatchQueue.main

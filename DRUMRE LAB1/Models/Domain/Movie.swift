@@ -8,20 +8,20 @@
 import Foundation
 
 struct Movie: Codable, Hashable {
-    let id: Int
+    let id: String
     let title: String
     let description: String
     var language: String
-    let year: Int
+    let year: String
     let imageUrl: String
     var genres: [Genre]
 
     init(
-        id: Int,
+        id: String,
         title: String,
         description: String,
         language: String,
-        year: Int,
+        year: String,
         imageUrl: String,
         genres: [Genre]
     ) {
@@ -36,11 +36,11 @@ struct Movie: Codable, Hashable {
 
     init?(from data: [String: Any]) {
         guard
-            let id = data["id"] as? Int,
+            let id = data["id"] as? String,
             let title = data["title"] as? String,
             let description = data["description"] as? String,
             let language = data["language"] as? String,
-            let year = data["year"] as? Int,
+            let year = data["year"] as? String,
             let imageUrl = data["imageUrl"] as? String,
             let genresData = data["genres"] as? [[String: Any]]
         else {
@@ -69,11 +69,11 @@ struct Movie: Codable, Hashable {
     }
 
     static let mock = Movie(
-        id: 1,
+        id: UUID().uuidString,
         title: "Titanic",
         description: "A timeless romance and disaster",
         language: "English",
-        year: 1912,
+        year: "1912",
         imageUrl: "https://m.media-amazon.com/images/I/811lT7khIrL._SY679_.jpg",
         genres: [
             .init(name: "Drama"),

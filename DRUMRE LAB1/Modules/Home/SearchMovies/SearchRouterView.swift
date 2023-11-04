@@ -1,33 +1,30 @@
 //
 //  DRUMRE LAB1
-//  HomeRouterView.swift
+//  SearchRouterView.swift
 //
 //  Andre Flego
 //
 
 import SwiftUI
 
-struct HomeRouterView: View {
+struct SearchRouterView: View {
     @EnvironmentObject private var sessionManager: SessionManager
-    @StateObject private var homeRouter: HomeRouter
+    @StateObject private var searchRouter: SearchRouter
 
-    init(homeRouter: HomeRouter) {
-        self._homeRouter = StateObject(wrappedValue: homeRouter)
+    init(searchRouter: SearchRouter) {
+        self._searchRouter = StateObject(wrappedValue: searchRouter)
     }
 
     var body: some View {
-        NavigationStack(path: $homeRouter.navigationPath) { [unowned homeRouter] in
-            HomeView {
-                HomeViewModel(
-                    router: homeRouter,
-                    homeRepository: HomeRepository(
-                        sessionManager: sessionManager,
-                        database: .shared,
-                        theMovieDB: TheMovieDB()
-                    )
+        NavigationStack(path: $searchRouter.navigationPath) { [unowned searchRouter] in
+            SearchMoviesView {
+                SearchMoviesViewModel(
+                    searchRouter: searchRouter,
+                    searchMoviesRepository: SearchMoviesRepository(omdb: OMDB()),
+                    sessionManager: sessionManager
                 )
             }
-            .navigationDestination(for: HomePushDestination.self) { destination in
+            .navigationDestination(for: SearchPushDestination.self) { destination in
                 switch destination {
                 case .movieDetails(let movie):
                     MovieDetailsView {
@@ -41,17 +38,17 @@ struct HomeRouterView: View {
                     }
                 }
             }
-            .sheet(item: $homeRouter.sheet) { sheet in
+            .sheet(item: $searchRouter.sheet) { sheet in
                 sheetView(for: sheet)
             }
-            .fullScreenCover(item: $homeRouter.fullscreenSheet) { sheet in
+            .fullScreenCover(item: $searchRouter.fullscreenSheet) { sheet in
                 sheetView(for: sheet)
             }
         }
     }
 
     @ViewBuilder
-    private func sheetView(for sheet: HomeSheetDestination) -> some View {
+    private func sheetView(for sheet: SearchSheetDestination) -> some View {
         switch sheet {
         case .userInfo:
             UserInfoRouterView(
@@ -59,7 +56,7 @@ struct HomeRouterView: View {
                     onSwitch: { destination in
                         switch destination {
                         case .home:
-                            homeRouter.dismiss()
+                            searchRouter.dismiss()
                         }
                     }
                 )
@@ -67,3 +64,4 @@ struct HomeRouterView: View {
         }
     }
 }
+

@@ -28,7 +28,6 @@ struct RootView: View {
             case .home:
                 homeView
             }
-
         }
         .onAppear {
             viewModel.input.viewDidAppear.send()
@@ -52,7 +51,9 @@ private extension RootView {
     }
 
     var homeView: some View {
-        HomeRouterView(homeRouter: HomeRouter())
+        HomeView {
+            HomeViewModel()
+        }
     }
 }
 

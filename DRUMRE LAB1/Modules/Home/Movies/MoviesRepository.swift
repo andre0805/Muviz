@@ -1,44 +1,29 @@
 //
 //  DRUMRE LAB1
-//  HomeRepository.swift
+//  MoviesRepository.swift
 //
 //  Andre Flego
 //
 
-import Combine
+import Foundation
 
-protocol HomeRepositoryProtocol {
-    var sessionManager: SessionManager { get }
-    var database: Database { get }
+protocol MoviesRepositoryProtocol {
     var theMovieDB: TheMovieDBProtocol { get }
 
-    func logout()
     func getGenres() async throws -> [Genre]
     func getMovies(page: Int) async throws -> [Movie]
 }
 
-class HomeRepository: HomeRepositoryProtocol {
-    let sessionManager: SessionManager
-    let database: Database
+class MoviesRepository: MoviesRepositoryProtocol {
     let theMovieDB: TheMovieDBProtocol
 
-    init(
-        sessionManager: SessionManager,
-        database: Database,
-        theMovieDB: TheMovieDBProtocol
-    ) {
-        self.sessionManager = sessionManager
-        self.database = database
+    init(theMovieDB: TheMovieDBProtocol) {
         self.theMovieDB = theMovieDB
-    }
-
-    func logout() {
-        sessionManager.logOut()
     }
 
     func getGenres() async throws -> [Genre] {
         var genres: [Genre] = []
-        
+
         let theMovieDBGenres = try await getGenresFromTheMovieDB()
         genres.append(contentsOf: theMovieDBGenres)
 
@@ -56,7 +41,7 @@ class HomeRepository: HomeRepositoryProtocol {
 }
 
 // MARK: The Movie DB
-private extension HomeRepository {
+private extension MoviesRepository {
     func getGenresFromTheMovieDB() async throws -> [Genre] {
         return try await theMovieDB.getGenres().mapToDomainModel()
     }

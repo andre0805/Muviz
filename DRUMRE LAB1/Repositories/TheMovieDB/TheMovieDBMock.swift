@@ -31,99 +31,99 @@ class TheMovieDBMock: TheMovieDBProtocol {
     }
 
     func getMovies(page: Int = 1) async throws -> [TMDBMovie] {
-        let movies = [
+        let movies: [TMDBMovie] = [
             TMDBMovie(
                 id: 1,
-                title: "Movie 1",
-                overview: "An exciting movie",
+                title: "Inception",
+                overview: "A thief who enters the dreams of others to steal their secrets.",
                 originalLanguage: "English",
-                releaseDate: "2023-01-01",
-                genreIds: [1],
-                posterPath: "poster1.jpg"
+                releaseDate: "2010-07-16",
+                genreIds: [1, 5],
+                posterPath: "inception_poster.jpg"
             ),
-            
             TMDBMovie(
                 id: 2,
-                title: "Movie 2", 
-                overview: "A funny comedy",
+                title: "The Shawshank Redemption",
+                overview: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
                 originalLanguage: "English",
-                releaseDate: "2023-02-01", 
-                genreIds: [2, 6],
-                posterPath: "poster2.jpg"
+                releaseDate: "1994-09-10",
+                genreIds: [3, 4],
+                posterPath: "shawshank_redemption_poster.jpg"
             ),
             TMDBMovie(
                 id: 3,
-                title: "Movie 3", 
-                overview: "A dramatic story",
-                originalLanguage: "Spanish",
-                releaseDate: "2023-03-01", 
-                genreIds: [3, 7],
-                posterPath: "poster3.jpg"
+                title: "The Godfather",
+                overview: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+                originalLanguage: "English",
+                releaseDate: "1972-03-14",
+                genreIds: [3, 4],
+                posterPath: "godfather_poster.jpg"
             ),
             TMDBMovie(
                 id: 4,
-                title: "Movie 4", 
-                overview: "An action-packed adventure",
+                title: "Pulp Fiction",
+                overview: "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine.",
                 originalLanguage: "English",
-                releaseDate: "2023-04-01", 
-                genreIds: [1, 4],
-                posterPath: "poster4.jpg"
+                releaseDate: "1994-09-10",
+                genreIds: [3, 7],
+                posterPath: "pulp_fiction_poster.jpg"
             ),
             TMDBMovie(
                 id: 5,
-                title: "Movie 5", 
-                overview: "A romantic tale",
-                originalLanguage: "French",
-                releaseDate: "2023-05-01", 
-                genreIds: [6],
-                posterPath: "poster5.jpg"
+                title: "The Dark Knight",
+                overview: "When the menace known as The Joker emerges, Batman must confront his own demons while protecting Gotham City from destruction.",
+                originalLanguage: "English",
+                releaseDate: "2008-07-18",
+                genreIds: [1, 3, 7],
+                posterPath: "dark_knight_poster.jpg"
             ),
             TMDBMovie(
                 id: 6,
-                title: "Movie 6", 
-                overview: "A thrilling mystery",
+                title: "Schindler's List",
+                overview: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
                 originalLanguage: "English",
-                releaseDate: "2023-06-01", 
-                genreIds: [7],
-                posterPath: "poster6.jpg"
+                releaseDate: "1993-12-15",
+                genreIds: [3, 8],
+                posterPath: "schindlers_list_poster.jpg"
             ),
             TMDBMovie(
                 id: 7,
-                title: "Movie 7", 
-                overview: "A sci-fi adventure",
+                title: "Forrest Gump",
+                overview: "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of an Alabama man with an IQ of 75.",
                 originalLanguage: "English",
-                releaseDate: "2023-07-01", 
-                genreIds: [9],
-                posterPath: "poster7.jpg"
+                releaseDate: "1994-07-06",
+                genreIds: [2, 3],
+                posterPath: "forrest_gump_poster.jpg"
             ),
             TMDBMovie(
                 id: 8,
-                title: "Movie 8", 
-                overview: "A family animation",
+                title: "The Matrix",
+                overview: "A computer programmer discovers that reality as he knows it is a simulation created by machines to subjugate humanity.",
                 originalLanguage: "English",
-                releaseDate: "2023-08-01", 
-                genreIds: [9],
-                posterPath: "poster8.jpg"
+                releaseDate: "1999-03-30",
+                genreIds: [1, 5],
+                posterPath: "matrix_poster.jpg"
             ),
             TMDBMovie(
                 id: 9,
-                title: "Movie 9", 
-                overview: "A classic drama",
+                title: "Goodfellas",
+                overview: "The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners Jimmy Conway and Tommy DeVito in the Italian-American crime syndicate.",
                 originalLanguage: "English",
-                releaseDate: "2023-09-01", 
-                genreIds: [3],
-                posterPath: "poster9.jpg"
+                releaseDate: "1990-09-12",
+                genreIds: [3, 4],
+                posterPath: "goodfellas_poster.jpg"
             ),
             TMDBMovie(
                 id: 10,
-                title: "Movie 10", 
-                overview: "A horror thriller",
+                title: "Gladiator",
+                overview: "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
                 originalLanguage: "English",
-                releaseDate: "2023-10-01", 
-                genreIds: [1, 10],
-                posterPath: "poster10.jpg"
+                releaseDate: "2000-05-01",
+                genreIds: [1, 3, 4],
+                posterPath: "gladiator_poster.jpg"
             )
         ]
+
 
         self.cachedMovies = movies
         
