@@ -15,8 +15,6 @@
 		653B8C6A2AD18A7F008DD800 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C5B2AD18A7F008DD800 /* Logger.swift */; };
 		653B8C6B2AD18A7F008DD800 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C5C2AD18A7F008DD800 /* LocalStorage.swift */; };
 		653B8C6C2AD18A7F008DD800 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C5D2AD18A7F008DD800 /* Router.swift */; };
-		653B8C802AD18AE2008DD800 /* Thread+debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7B2AD18AE2008DD800 /* Thread+debug.swift */; };
-		653B8C812AD18AE2008DD800 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7C2AD18AE2008DD800 /* Int+Extensions.swift */; };
 		653B8C832AD18AE2008DD800 /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C7E2AD18AE2008DD800 /* Dictionary+Extensions.swift */; };
 		653B8C862AD18B08008DD800 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 653B8C852AD18B08008DD800 /* SwiftyBeaver */; };
 		653B8C8B2AD18B5B008DD800 /* DispatchQueueFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8C872AD18B5B008DD800 /* DispatchQueueFactory.swift */; };
@@ -59,6 +57,9 @@
 		658107E92AF6BC4400A053A0 /* MoviesRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658107E82AF6BC4400A053A0 /* MoviesRouterView.swift */; };
 		658107EB2AF6BD7600A053A0 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658107EA2AF6BD7600A053A0 /* SearchRouter.swift */; };
 		658107ED2AF6BDC100A053A0 /* SearchRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658107EC2AF6BDC100A053A0 /* SearchRouterView.swift */; };
+		658107F22AF6E3A000A053A0 /* HighlightedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658107F02AF6E3A000A053A0 /* HighlightedButtonStyle.swift */; };
+		658107F32AF6E3A000A053A0 /* HighlightedButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658107F12AF6E3A000A053A0 /* HighlightedButtonViewModifier.swift */; };
+		658107F62AF6E44100A053A0 /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658107F52AF6E44100A053A0 /* Button+Extensions.swift */; };
 		659C95222AF430E600FE5042 /* TMDBGenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C95212AF430E600FE5042 /* TMDBGenresResponse.swift */; };
 		659C95282AF4528D00FE5042 /* TheMovieDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C95272AF4528D00FE5042 /* TheMovieDB.swift */; };
 		659C952A2AF4553F00FE5042 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659C95292AF4553F00FE5042 /* RequestBuilder.swift */; };
@@ -89,8 +90,6 @@
 		653B8C5B2AD18A7F008DD800 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		653B8C5C2AD18A7F008DD800 /* LocalStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		653B8C5D2AD18A7F008DD800 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		653B8C7B2AD18AE2008DD800 /* Thread+debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Thread+debug.swift"; sourceTree = "<group>"; };
-		653B8C7C2AD18AE2008DD800 /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		653B8C7E2AD18AE2008DD800 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
 		653B8C872AD18B5B008DD800 /* DispatchQueueFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueFactory.swift; sourceTree = "<group>"; };
 		653B8C882AD18B5B008DD800 /* Application.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
@@ -126,6 +125,9 @@
 		658107E82AF6BC4400A053A0 /* MoviesRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRouterView.swift; sourceTree = "<group>"; };
 		658107EA2AF6BD7600A053A0 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		658107EC2AF6BDC100A053A0 /* SearchRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouterView.swift; sourceTree = "<group>"; };
+		658107F02AF6E3A000A053A0 /* HighlightedButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButtonStyle.swift; sourceTree = "<group>"; };
+		658107F12AF6E3A000A053A0 /* HighlightedButtonViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightedButtonViewModifier.swift; sourceTree = "<group>"; };
+		658107F52AF6E44100A053A0 /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		659C95212AF430E600FE5042 /* TMDBGenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBGenresResponse.swift; sourceTree = "<group>"; };
 		659C95272AF4528D00FE5042 /* TheMovieDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheMovieDB.swift; sourceTree = "<group>"; };
 		659C95292AF4553F00FE5042 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		653B8C772AD18AE2008DD800 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				658107F42AF6E43500A053A0 /* SwiftUI */,
 				653B8C7A2AD18AE2008DD800 /* Foundation */,
 			);
 			path = Extensions;
@@ -261,8 +264,6 @@
 		653B8C7A2AD18AE2008DD800 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				653B8C7B2AD18AE2008DD800 /* Thread+debug.swift */,
-				653B8C7C2AD18AE2008DD800 /* Int+Extensions.swift */,
 				653B8C7E2AD18AE2008DD800 /* Dictionary+Extensions.swift */,
 			);
 			path = Foundation;
@@ -344,6 +345,14 @@
 			path = SearchMovies;
 			sourceTree = "<group>";
 		};
+		658107F42AF6E43500A053A0 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				658107F52AF6E44100A053A0 /* Button+Extensions.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		659C95232AF4509100FE5042 /* TheMovieDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +418,8 @@
 			children = (
 				65FC57112AF5A500000F43B0 /* MovieList.swift */,
 				658107D22AF6A1B600A053A0 /* LoadingModifier.swift */,
+				658107F02AF6E3A000A053A0 /* HighlightedButtonStyle.swift */,
+				658107F12AF6E3A000A053A0 /* HighlightedButtonViewModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -558,8 +569,9 @@
 				658107ED2AF6BDC100A053A0 /* SearchRouterView.swift in Sources */,
 				658107D12AF69AAC00A053A0 /* MoviesRepository.swift in Sources */,
 				658107E72AF6BC3D00A053A0 /* MoviesRouter.swift in Sources */,
+				658107F32AF6E3A000A053A0 /* HighlightedButtonViewModifier.swift in Sources */,
 				658107D72AF6A26300A053A0 /* SearchMoviesViewModel.swift in Sources */,
-				653B8C812AD18AE2008DD800 /* Int+Extensions.swift in Sources */,
+				658107F22AF6E3A000A053A0 /* HighlightedButtonStyle.swift in Sources */,
 				659C95322AF45E8000FE5042 /* Movie.swift in Sources */,
 				653B8C532AD18A67008DD800 /* APIError.swift in Sources */,
 				653B8C6C2AD18A7F008DD800 /* Router.swift in Sources */,
@@ -572,12 +584,12 @@
 				653B8C832AD18AE2008DD800 /* Dictionary+Extensions.swift in Sources */,
 				653B8CA22AD1C2E1008DD800 /* RootViewModel.swift in Sources */,
 				65FC57182AF5AE53000F43B0 /* UserInfoRouter.swift in Sources */,
-				653B8C802AD18AE2008DD800 /* Thread+debug.swift in Sources */,
 				658107EB2AF6BD7600A053A0 /* SearchRouter.swift in Sources */,
 				65FC570F2AF5A3B8000F43B0 /* UserInfoViewModel.swift in Sources */,
 				659C952A2AF4553F00FE5042 /* RequestBuilder.swift in Sources */,
 				653B8CAB2AD1D92D008DD800 /* LoginView.swift in Sources */,
 				653B8CA12AD1C2E1008DD800 /* RootView.swift in Sources */,
+				658107F62AF6E44100A053A0 /* Button+Extensions.swift in Sources */,
 				653B8C8D2AD18B5B008DD800 /* Storage.swift in Sources */,
 				6558EF922ADC1B11006BB582 /* Database.swift in Sources */,
 				65FC570E2AF5A3B8000F43B0 /* UserInfoView.swift in Sources */,

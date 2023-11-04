@@ -20,7 +20,6 @@ struct UserInfoView: View {
             profileDetails
             favoriteMovies
         }
-        .padding(.horizontal, 16)
         .padding(.top, 32)
         .toolbar {
             toolbarView
@@ -48,6 +47,7 @@ private extension UserInfoView {
                 .font(.title)
                 .fontWeight(.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
 
             let movies = viewModel.output.user.favoriteMovies.sorted(by: { $0.title < $1.title })
 

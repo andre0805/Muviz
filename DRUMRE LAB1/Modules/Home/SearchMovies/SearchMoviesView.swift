@@ -23,6 +23,7 @@ struct SearchMoviesView: View {
                 Text("Sorry, we can't find the movie you are looking for 😔")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.gray)
+                    .frame(width: 300, alignment: .center)
             } else {
                 MovieList(movies: viewModel.output.movies) { movie in
                     viewModel.input.movieTapped.send(movie)
@@ -30,7 +31,6 @@ struct SearchMoviesView: View {
                 .isLoading(viewModel.output.isLoading)
             }
         }
-        .padding(.horizontal)
         .padding(.bottom, -16)
         .searchable(text: $searchText, placement: .navigationBarDrawer, prompt: "Search movies...")
         .navigationTitle(viewModel.output.title)
@@ -38,7 +38,6 @@ struct SearchMoviesView: View {
             toolbarView
         }
         .onChange(of: searchText) { _, newValue in
-            guard newValue.count > 3 else { return }
             viewModel.input.searchInput.send(newValue)
         }
     }

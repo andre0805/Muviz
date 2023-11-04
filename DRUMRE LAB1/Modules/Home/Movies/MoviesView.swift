@@ -18,6 +18,7 @@ struct MoviesView: View {
     var body: some View {
         VStack(spacing: 16) {
             genreList
+                .padding(.horizontal)
                 .transition(.move(edge: .leading))
 
             movieList
@@ -25,7 +26,6 @@ struct MoviesView: View {
 
             Spacer()
         }
-        .padding(.horizontal)
         .padding(.bottom, -16)
         .isLoading(viewModel.output.isLoading)
         .navigationTitle(viewModel.output.title)

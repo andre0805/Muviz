@@ -15,6 +15,7 @@ struct MovieList: View {
         List(movies, id: \.id) { movie in
             movieView(for: movie)
                 .listRowSeparator(.hidden)
+                .padding(.vertical, -10)
         }
         .listStyle(.plain)
         .padding(.horizontal, -20)
@@ -51,11 +52,12 @@ struct MovieList: View {
                     .frame(width: 16, height: 16)
             }
             .frame(height: 100)
+            .padding(16)
         }
-        .buttonStyle(.plain)
+        .highlightColor(highlightColor: Color.gray.opacity(0.2))
     }
 }
 
 #Preview {
-    MovieList(movies: [], onTap: nil)
+    MovieList(movies: .mock, onTap: nil)
 }
