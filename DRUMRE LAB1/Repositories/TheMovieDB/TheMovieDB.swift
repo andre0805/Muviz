@@ -8,11 +8,11 @@
 import Foundation
 
 protocol TheMovieDBProtocol {
-    var cachedGenres: [TheMovieDB.Genre] { get }
-    var cachedMovies: [TheMovieDB.Movie] { get }
-    
-    func getGenres() async throws -> [TheMovieDB.Genre]
-    func getMovies(page: Int) async throws -> [TheMovieDB.Movie]
+    var cachedGenres: [TMDBGenre] { get }
+    var cachedMovies: [TMDBMovie] { get }
+
+    func getGenres() async throws -> [TMDBGenre]
+    func getMovies(page: Int) async throws -> [TMDBMovie]
 }
 
 class TheMovieDB: TheMovieDBProtocol {    
@@ -20,10 +20,10 @@ class TheMovieDB: TheMovieDBProtocol {
     let apiKey = "a6a28403da7287a32604ff37a6a0f2b9"
     let token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNmEyODQwM2RhNzI4N2EzMjYwNGZmMzdhNmEwZjJiOSIsInN1YiI6IjY1NDAxMjRmMWQxYmY0MDEwMTYyNGZlYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rlb3ysEUFE7ZDQHmNx19KAji0L-G3vBBeCvcWXRpug0"
 
-    private(set) var cachedGenres: [Genre] = []
-    private(set) var cachedMovies: [Movie] = []
+    private(set) var cachedGenres: [TMDBGenre] = []
+    private(set) var cachedMovies: [TMDBMovie] = []
 
-    func getGenres() async throws -> [Genre] {
+    func getGenres() async throws -> [TMDBGenre] {
         let urlRequest = try RequestBuilder(
             baseURL: baseURL,
             path: "/3/genre/movie/list"
@@ -44,7 +44,7 @@ class TheMovieDB: TheMovieDBProtocol {
         }
 
         do {
-            let genresResponse =  try JSONDecoder().decode(GenresResponse.self, from: data)
+            let genresResponse =  try JSONDecoder().decode(TMDBGenresResponse.self, from: data)
             self.cachedGenres = genresResponse.genres
             return genresResponse.genres
         } catch {
@@ -52,7 +52,7 @@ class TheMovieDB: TheMovieDBProtocol {
         }
     }
 
-    func getMovies(page: Int = 1) async throws -> [Movie] {
+    func getMovies(page: Int = 1) async throws -> [TMDBMovie] {
         let urlRequest = try RequestBuilder(
             baseURL: baseURL,
             path: "/3/discover/movie"
@@ -77,7 +77,7 @@ class TheMovieDB: TheMovieDBProtocol {
         }
 
         do {
-            let moviesResponse =  try JSONDecoder().decode(MoviesResponse.self, from: data)
+            let moviesResponse =  try JSONDecoder().decode(TMDBMoviesResponse.self, from: data)
             var movies = moviesResponse.results
             movies.removeDuplicates()
 

@@ -1,26 +1,24 @@
 //
 //  DRUMRE LAB1
-//  Movie.swift
+//  TMDBMovie.swift
 //
 //  Andre Flego
 //
 
 import Foundation
 
-extension TheMovieDB {
-    struct Movie: Codable, Hashable {
-        let id: Int
-        let title: String
-        let overview: String
-        var originalLanguage: String
-        let releaseDate: String
-        let genreIds: [Int]
-        let posterPath: String
-    }
+struct TMDBMovie: Codable, Hashable {
+    let id: Int
+    let title: String
+    let overview: String
+    var originalLanguage: String
+    let releaseDate: String
+    let genreIds: [Int]
+    let posterPath: String
 }
 
-extension TheMovieDB.Movie {
-    func mapToDomainModel(withGenres genres: [TheMovieDB.Genre] = []) -> DRUMRE_LAB1.Movie {
+extension TMDBMovie {
+    func mapToDomainModel(withGenres genres: [TMDBGenre] = []) -> Movie {
         .init(
             id: id,
             title: title,
@@ -36,7 +34,7 @@ extension TheMovieDB.Movie {
         Constants.TheMovieDB.languageNames.getValue(for: isoCode) ?? isoCode
     }
 
-    private func getGenres(from genres: [TheMovieDB.Genre]) -> [Genre] {
+    private func getGenres(from genres: [TMDBGenre]) -> [Genre] {
         genreIds
             .compactMap { genreId in
                 genres.first(where: { $0.id == genreId })?.name
@@ -45,14 +43,14 @@ extension TheMovieDB.Movie {
     }
 }
 
-extension [TheMovieDB.Movie] {
-    func mapToDomainModel(withGenres genres: [TheMovieDB.Genre] = []) -> [DRUMRE_LAB1.Movie] {
+extension [TMDBMovie] {
+    func mapToDomainModel(withGenres genres: [TMDBGenre] = []) -> [Movie] {
         map { $0.mapToDomainModel(withGenres: genres) }
     }
 }
 
 // MARK: Movie + Decoder
-extension TheMovieDB.Movie {
+extension TMDBMovie {
     enum CodingKeys: String, CodingKey {
         case id
         case title
@@ -76,7 +74,7 @@ extension TheMovieDB.Movie {
 }
 
 // MARK: Movie + Encoder
-//extension TheMovieDB.Movie {
+//extension Movie {
 //    enum EncodingKeys: String, CodingKey {
 //        case id
 //        case title

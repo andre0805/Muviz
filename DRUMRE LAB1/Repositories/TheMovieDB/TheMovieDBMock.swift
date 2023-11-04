@@ -8,21 +8,21 @@
 import Foundation
 
 class TheMovieDBMock: TheMovieDBProtocol {
-    private(set) var cachedGenres: [TheMovieDB.Genre] = []
-    private(set) var cachedMovies: [TheMovieDB.Movie] = []
+    private(set) var cachedGenres: [TMDBGenre] = []
+    private(set) var cachedMovies: [TMDBMovie] = []
 
-    func getGenres() async throws -> [TheMovieDB.Genre] {
+    func getGenres() async throws -> [TMDBGenre] {
         let genres = [
-            TheMovieDB.Genre(id: 1, name: "Action"),
-            TheMovieDB.Genre(id: 2, name: "Comedy"),
-            TheMovieDB.Genre(id: 3, name: "Drama"),
-            TheMovieDB.Genre(id: 4, name: "Crimi"),
-            TheMovieDB.Genre(id: 5, name: "Science Fiction and Fantasy"),
-            TheMovieDB.Genre(id: 6, name: "Romance"),
-            TheMovieDB.Genre(id: 7, name: "Mystery"),
-            TheMovieDB.Genre(id: 8, name: "Documentary"),
-            TheMovieDB.Genre(id: 9, name: "Animation"),
-            TheMovieDB.Genre(id: 10, name: "Horror"),
+            TMDBGenre(id: 1, name: "Action"),
+            TMDBGenre(id: 2, name: "Comedy"),
+            TMDBGenre(id: 3, name: "Drama"),
+            TMDBGenre(id: 4, name: "Crimi"),
+            TMDBGenre(id: 5, name: "Science Fiction and Fantasy"),
+            TMDBGenre(id: 6, name: "Romance"),
+            TMDBGenre(id: 7, name: "Mystery"),
+            TMDBGenre(id: 8, name: "Documentary"),
+            TMDBGenre(id: 9, name: "Animation"),
+            TMDBGenre(id: 10, name: "Horror"),
         ]
 
         self.cachedGenres = genres
@@ -30,9 +30,9 @@ class TheMovieDBMock: TheMovieDBProtocol {
         return genres
     }
 
-    func getMovies(page: Int = 1) async throws -> [TheMovieDB.Movie] {
+    func getMovies(page: Int = 1) async throws -> [TMDBMovie] {
         let movies = [
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 1,
                 title: "Movie 1",
                 overview: "An exciting movie",
@@ -42,7 +42,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 posterPath: "poster1.jpg"
             ),
             
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 2,
                 title: "Movie 2", 
                 overview: "A funny comedy",
@@ -51,7 +51,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [2, 6],
                 posterPath: "poster2.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 3,
                 title: "Movie 3", 
                 overview: "A dramatic story",
@@ -60,7 +60,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [3, 7],
                 posterPath: "poster3.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 4,
                 title: "Movie 4", 
                 overview: "An action-packed adventure",
@@ -69,7 +69,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [1, 4],
                 posterPath: "poster4.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 5,
                 title: "Movie 5", 
                 overview: "A romantic tale",
@@ -78,7 +78,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [6],
                 posterPath: "poster5.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 6,
                 title: "Movie 6", 
                 overview: "A thrilling mystery",
@@ -87,7 +87,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [7],
                 posterPath: "poster6.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 7,
                 title: "Movie 7", 
                 overview: "A sci-fi adventure",
@@ -96,7 +96,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [9],
                 posterPath: "poster7.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 8,
                 title: "Movie 8", 
                 overview: "A family animation",
@@ -105,7 +105,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [9],
                 posterPath: "poster8.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 9,
                 title: "Movie 9", 
                 overview: "A classic drama",
@@ -114,7 +114,7 @@ class TheMovieDBMock: TheMovieDBProtocol {
                 genreIds: [3],
                 posterPath: "poster9.jpg"
             ),
-            TheMovieDB.Movie(
+            TMDBMovie(
                 id: 10,
                 title: "Movie 10", 
                 overview: "A horror thriller",
