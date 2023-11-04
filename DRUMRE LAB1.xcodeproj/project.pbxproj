@@ -266,7 +266,7 @@
 				653B8CA62AD1D0CF008DD800 /* User.swift */,
 				654E113C2AD2CA7D0024008C /* FacebookError.swift */,
 				659C952E2AF45BEF00FE5042 /* Domain */,
-				659C95232AF4509100FE5042 /* TheMovieDB */,
+				65FC57232AF6514B000F43B0 /* DTO */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -307,6 +307,7 @@
 		659C95262AF4528000FE5042 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				65FC57212AF65136000F43B0 /* OMDB */,
 				65FC571B2AF64F45000F43B0 /* TheMovieDB */,
 			);
 			path = Repositories;
@@ -367,6 +368,29 @@
 				659C95332AF5287300FE5042 /* TheMovieDBMock.swift */,
 			);
 			path = TheMovieDB;
+			sourceTree = "<group>";
+		};
+		65FC57212AF65136000F43B0 /* OMDB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OMDB;
+			sourceTree = "<group>";
+		};
+		65FC57222AF65140000F43B0 /* OMDB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OMDB;
+			sourceTree = "<group>";
+		};
+		65FC57232AF6514B000F43B0 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				65FC57222AF65140000F43B0 /* OMDB */,
+				659C95232AF4509100FE5042 /* TheMovieDB */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
