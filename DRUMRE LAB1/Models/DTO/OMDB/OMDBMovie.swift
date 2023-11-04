@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Movie DTO with basic data
 struct OMDBMovie: Decodable {
     let id: String
     let title: String
@@ -21,6 +22,7 @@ struct OMDBMovie: Decodable {
     }
 }
 
+/// Movie DTO with full data
 struct OMDBMovieDetails: Decodable {
     let id: String
     let title: String
