@@ -61,7 +61,6 @@
 		65FC570E2AF5A3B8000F43B0 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC570C2AF5A3B8000F43B0 /* UserInfoView.swift */; };
 		65FC570F2AF5A3B8000F43B0 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC570D2AF5A3B8000F43B0 /* UserInfoViewModel.swift */; };
 		65FC57122AF5A500000F43B0 /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC57112AF5A500000F43B0 /* MovieList.swift */; };
-		65FC57142AF5A681000F43B0 /* ProfileIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC57132AF5A681000F43B0 /* ProfileIcon.swift */; };
 		65FC57182AF5AE53000F43B0 /* UserInfoRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC57172AF5AE53000F43B0 /* UserInfoRouter.swift */; };
 		65FC571A2AF5AE82000F43B0 /* UserInfoRouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FC57192AF5AE82000F43B0 /* UserInfoRouterView.swift */; };
 /* End PBXBuildFile section */
@@ -115,7 +114,6 @@
 		65FC570C2AF5A3B8000F43B0 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		65FC570D2AF5A3B8000F43B0 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 		65FC57112AF5A500000F43B0 /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
-		65FC57132AF5A681000F43B0 /* ProfileIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIcon.swift; sourceTree = "<group>"; };
 		65FC57172AF5AE53000F43B0 /* UserInfoRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRouter.swift; sourceTree = "<group>"; };
 		65FC57192AF5AE82000F43B0 /* UserInfoRouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoRouterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -359,7 +357,6 @@
 			isa = PBXGroup;
 			children = (
 				65FC57112AF5A500000F43B0 /* MovieList.swift */,
-				65FC57132AF5A681000F43B0 /* ProfileIcon.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -490,7 +487,6 @@
 				659C95282AF4528D00FE5042 /* TheMovieDB.swift in Sources */,
 				65AC6A0B2AF04DC800066152 /* MoviesResponse.swift in Sources */,
 				653B8C592AD18A67008DD800 /* RequestMethod.swift in Sources */,
-				65FC57142AF5A681000F43B0 /* ProfileIcon.swift in Sources */,
 				653B8CB12AD21829008DD800 /* HomeViewModel.swift in Sources */,
 				653B8CA72AD1D0CF008DD800 /* User.swift in Sources */,
 				653B8C8E2AD18B5B008DD800 /* Constants.swift in Sources */,
@@ -643,6 +639,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-Wl,-ld_classic";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.andreflego.DRUMRE-LAB1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -673,6 +670,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-Wl,-ld_classic";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.andreflego.DRUMRE-LAB1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
