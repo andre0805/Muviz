@@ -36,6 +36,7 @@ struct DRUMRE_LAB1App: App {
             RootView {
                 RootViewModel(sessionManager: sessionManager, database: database)
             }
+            .preferredColorScheme(.light)
             .environmentObject(sessionManager)
             .environmentObject(database)
             .onOpenURL { url in
