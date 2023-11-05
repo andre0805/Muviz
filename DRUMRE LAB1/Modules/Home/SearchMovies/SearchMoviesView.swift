@@ -18,21 +18,29 @@ struct SearchMoviesView: View {
     }
 
     var body: some View {
-        VStack {
-            if viewModel.output.noMoviesFound {
-                Text("Sorry, we can't find the movie you are looking for 😔")
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.gray)
-                    .frame(width: 300, alignment: .center)
-            } else {
-                MovieList(movies: viewModel.output.movies) { movie in
-                    viewModel.input.movieTapped.send(movie)
+        ZStack {
+            Color.backgroundColor
+                .ignoresSafeArea()
+
+            VStack {
+                if viewModel.output.noMoviesFound {
+                    Text("Sorry, we can't find the movie you are looking for 😔")
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(Color.customGray)
+                        .frame(width: 300, alignment: .center)
+                        .shadow(color: Color.customGray, radius: 4, y: 2)
+                } else {
+                    MovieList(movies: viewModel.output.movies) { movie in
+                        viewModel.input.movieTapped.send(movie)
+                    }
+                    .isLoading(viewModel.output.isLoading)
                 }
-                .isLoading(viewModel.output.isLoading)
             }
         }
         .padding(.bottom, -16)
-        .searchable(text: $searchText, placement: .navigationBarDrawer, prompt: "Search movies...")
+        .searchable(text: $searchText, prompt: "Search movies...")
+        .searchBarColor(tintColor: .blackPrimary)
+        .navigationBarColor(backgroundColor: Color.backgroundColor, titleColor: Color.blackPrimary)
         .navigationTitle(viewModel.output.title)
         .toolbar {
             toolbarView
@@ -73,8 +81,8 @@ private extension SearchMoviesView {
             Text(initials)
                 .font(.system(size: 16))
                 .padding(8)
-                .foregroundStyle(.white)
-                .background(.blue)
+                .foregroundStyle(Color.whitePrimary)
+                .background(Color.blackPrimary)
         }
         .clipShape(Circle())
     }

@@ -15,3 +15,11 @@ struct HighlightedButtonViewModifier: ViewModifier {
             .buttonStyle(HighlightedButtonStyle(highlightColor: highlightColor))
     }
 }
+
+extension View {
+    func highlightColor(highlightColor: Color) -> some View {
+        modifier(
+            HighlightedButtonViewModifier(highlightColor: highlightColor)
+        )
+    }
+}

@@ -16,11 +16,16 @@ struct LoginView: View {
     }
     
     var body: some View {
-        VStack {
-            if viewModel.output.isLoading {
-                loadingIndicator
-            } else {
-                loginButton
+        ZStack {
+            Color.backgroundColor
+                .ignoresSafeArea()
+            
+            VStack {
+                if viewModel.output.isLoading {
+                    loadingIndicator
+                } else {
+                    loginButton
+                }
             }
         }
         .alert(
@@ -41,6 +46,8 @@ private extension LoginView {
     var loadingIndicator: some View {
         ProgressView()
             .scaleEffect(1.5)
+            .tint(.black)
+            .transition(.opacity.combined(with: .scale))
     }
     var loginButton: some View {
         Button {
@@ -54,9 +61,11 @@ private extension LoginView {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
-            .foregroundStyle(.white)
-            .background(Color(red: 8/255, green: 102/255, blue: 255/255))
+            .foregroundStyle(Color.whitePrimary)
+            .background(Color.fbButtonBackground)
             .clipShape(RoundedRectangle(cornerRadius: 8))
+            .shadow(color: Color.fbButtonShadow, radius: 4, y: 2)
+            .transition(.opacity.combined(with: .scale))
         }
     }
 }

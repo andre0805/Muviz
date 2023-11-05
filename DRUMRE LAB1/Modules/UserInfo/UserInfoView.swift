@@ -24,6 +24,7 @@ struct UserInfoView: View {
         .toolbar {
             toolbarView
         }
+        .background(Color.backgroundColor)
     }
 }
 
@@ -33,11 +34,14 @@ private extension UserInfoView {
         VStack(spacing: 8) {
             profileImage
 
-            Text(viewModel.output.user.name)
-                .font(.system(size: 28, weight: .bold))
+            VStack(spacing: 4) {
+                Text(viewModel.output.user.name)
+                    .font(.system(size: 28, weight: .bold))
 
-            Text(viewModel.output.user.email)
-                .font(.system(size: 18, weight: .light))
+                Text(viewModel.output.user.email)
+                    .font(.system(size: 18, weight: .light))
+            }
+            .foregroundStyle(Color.blackPrimary)
         }
     }
 
@@ -56,8 +60,9 @@ private extension UserInfoView {
 
                 Text("Bwoah, looks like you don't have any favorite movies 😬")
                     .multilineTextAlignment(.center)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(Color.customGray)
                     .frame(width: 300, alignment: .center)
+                    .shadow(color: Color.customGray, radius: 4, y: 2)
 
                 Spacer()
                 Spacer()
@@ -74,14 +79,14 @@ private extension UserInfoView {
             Button {
                 viewModel.input.logoutButtonTapped.send()
             } label: {
-                Text("Logout")
+                Image(.logout)
             }
         }
     }
 
     @ViewBuilder
     var profileImage: some View {
-        let imageUrl = URL(string: viewModel.output.user.imageUrl ?? "")
+        let imageUrl = URL(string: viewModel.output.user.imageUrl?.appending("asda") ?? "")
 
         AsyncImage(url: imageUrl) { image in
             image
@@ -99,11 +104,12 @@ private extension UserInfoView {
             Text(initials)
                 .font(.system(size: 32))
                 .padding(8)
-                .foregroundStyle(.white)
                 .frame(width: 100, height: 100)
-                .background(.blue)
+                .foregroundStyle(Color.whitePrimary)
+                .background(Color.blackPrimary)
         }
         .clipShape(Circle())
+        .shadow(color: Color.shadow, radius: 4, y: 2)
     }
 }
 

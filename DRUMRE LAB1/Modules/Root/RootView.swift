@@ -22,7 +22,7 @@ struct RootView: View {
         Group {
             switch viewModel.output.state {
             case .loading:
-                ProgressView()
+                loadingView
             case .authRequired:
                 loginView
             case .home:
@@ -37,6 +37,16 @@ struct RootView: View {
 
 // MARK: Views
 private extension RootView {
+    var loadingView: some View {
+        ZStack {
+            Color.backgroundColor
+                .ignoresSafeArea()
+
+            ProgressView()
+                .scaleEffect(1.5)
+                .tint(Color.blackPrimary)
+        }
+    }
     var loginView: some View {
         NavigationStack {
             LoginView {
@@ -61,5 +71,7 @@ private extension RootView {
     RootView {
         RootViewModel(sessionManager: .shared, database: .shared)
     }
+    .environmentObject(SessionManager.shared)
+    .environmentObject(Database.shared)
 }
 

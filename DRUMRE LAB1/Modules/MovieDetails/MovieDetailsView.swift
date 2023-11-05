@@ -30,6 +30,8 @@ struct MovieDetailsView: View {
         .toolbar {
             toolbarView
         }
+        .navigationBarColor(backgroundColor: Color.backgroundColor, titleColor: Color.blackPrimary)
+        .background(Color.backgroundColor)
     }
 }
 
@@ -58,7 +60,7 @@ private extension MovieDetailsView {
             .padding(.vertical, 12)
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.white)
+            .background(Color.backgroundColor)
             .clipShape(
                 UnevenRoundedRectangle(cornerRadii: .init(topLeading: 10, topTrailing: 10))
             )
@@ -119,6 +121,8 @@ private extension MovieDetailsView {
                 viewModel.input.updateFavoriteMovieTapped.send()
             } label: {
                 Image(systemName: viewModel.output.isFavorite ? "star.fill" : "star")
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.blackPrimary)
             }
         }
     }

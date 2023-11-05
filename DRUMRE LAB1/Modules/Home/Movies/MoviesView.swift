@@ -27,7 +27,9 @@ struct MoviesView: View {
             Spacer()
         }
         .padding(.bottom, -16)
+        .background(Color.backgroundColor)
         .isLoading(viewModel.output.isLoading)
+        .navigationBarColor(backgroundColor: Color.backgroundColor, titleColor: Color.blackPrimary)
         .navigationTitle(viewModel.output.title)
         .toolbar {
             toolbarView
@@ -41,12 +43,16 @@ struct MoviesView: View {
 // MARK: Views
 private extension MoviesView {
     var genreList: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 12) {
-                genreButton(for: nil)
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal) {
+                HStack(spacing: 12) {
+                    genreButton(for: nil, in: proxy)
+                        .id("all")
 
-                ForEach(viewModel.output.genres, id: \.name) { genre in
-                    genreButton(for: genre)
+                    ForEach(viewModel.output.genres, id: \.name) { genre in
+                        genreButton(for: genre, in: proxy)
+                            .id(genre.name)
+                    }
                 }
             }
         }
@@ -60,17 +66,22 @@ private extension MoviesView {
     }
 
     @ViewBuilder
-    func genreButton(for genre: Genre?) -> some View {
+    func genreButton(for genre: Genre?, in scrollProxy: ScrollViewProxy) -> some View {
         let isSelected = viewModel.output.selectedGenre == genre
+        let backgroundColor = isSelected ? Color.whitePrimary : Color.blackPrimary
+        let foregroundColor = isSelected ? Color.backgroundColor : Color.whitePrimary
 
         Button(genre?.name.uppercased() ?? "ALL") {
             viewModel.input.selectGenreTapped.send(genre)
+            withAnimation {
+                scrollProxy.scrollTo(genre?.name ?? "all", anchor: .center)
+            }
         }
         .font(.system(size: 14, weight: .bold))
         .padding(.horizontal, 16)
         .padding(.vertical, 6)
-        .background(Color.blue.opacity(isSelected ? 1 : 0.5))
-        .foregroundStyle(.white)
+        .background(backgroundColor)
+        .foregroundStyle(foregroundColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 
@@ -102,8 +113,8 @@ private extension MoviesView {
             Text(initials)
                 .font(.system(size: 16))
                 .padding(8)
-                .foregroundStyle(.white)
-                .background(.blue)
+                .foregroundStyle(Color.whitePrimary)
+                .background(Color.blackPrimary)
         }
         .clipShape(Circle())
     }
