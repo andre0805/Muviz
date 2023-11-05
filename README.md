@@ -5,6 +5,7 @@ As per requirements, app offers:
 * Facebook login (uses [Facebook Graph API](https://developers.facebook.com/docs/graph-api/))
 * Overview of movies available at [The Movie Database](https://www.themoviedb.org) (uses [TMDB API](https://developer.themoviedb.org/reference/intro/getting-started))
 * Searching for movies available at [IMDb](https://www.imdb.com) (uses [OMDb API](https://www.omdbapi.com))
+* Storing data (basic user info, favorite movies) in a NoSQL database (using [Firebase Database](https://firebase.google.com/docs/database))
 
 | Login |
 |:---:|
