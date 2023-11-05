@@ -8,21 +8,16 @@ As per requirements, app offers:
 
 | Login |
 |:---:|
-| <img src="https://github.com/andre0805/Muviz/assets/45342208/4d7464ac-6a27-49ab-8cdf-700da70a869d" width="200"/> |
+| <img src="https://github.com/andre0805/Muviz/assets/45342208/636e0017-15f1-4c40-9f79-02707fecafa4" width="200"/> |
 
 | Movies Overview | Movie Details | Movie Details |
 |:---:|:---:|:---:|
-| <img src="https://github.com/andre0805/Muviz/assets/45342208/b5b3a121-1c7c-442d-bafb-4f93921210b7" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/707f99d0-56b5-4897-8aba-9b795d6ec840" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/6a535734-c4ae-468c-9dcf-b022b6e8fe65" width="200"/> |
+| <img src="https://github.com/andre0805/Muviz/assets/45342208/d58cf775-eef4-446a-9a88-d1c56871095a" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/20ad15d0-bd48-4d46-9592-811c06d4dfc8" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/fc8fd696-f995-49ec-bac0-0e39df9536b7" width="200"/> |
 
 | Search | Search results |
 |:---:|:---:|
-| <img src="https://github.com/andre0805/Muviz/assets/45342208/dce6dfaf-7888-4d9f-a2ff-a2219f7a06e2" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/3a2a76cb-4110-4c71-86de-51f79e5cc65e" width="200"/> |
+| <img src="https://github.com/andre0805/Muviz/assets/45342208/be066260-e000-4b5c-a60d-96cd9f9712e1" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/0830e8b3-b7fc-4eae-8d2a-6573b31bc677" width="200"/> |
 
 | User Info | Favorite movie details |
 |:---:|:---:|
-| <img src="https://github.com/andre0805/Muviz/assets/45342208/21b0a794-b356-4024-a77f-affd0a9d985b" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/24916ff1-0035-42ab-92f3-e493f29be0c2" width="200"/> |
-
-
-
-
-
+| <img src="https://github.com/andre0805/Muviz/assets/45342208/a22c8918-2f9d-4005-b670-2fb0ea719c75" width="200"/> | <img src="https://github.com/andre0805/Muviz/assets/45342208/a3b1c243-e6fe-4b1c-aa20-5f4b13ff26e1" width="200"/> |
