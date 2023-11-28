@@ -21,7 +21,7 @@ struct Movie: Codable, Hashable {
     let languages: [String];
     let countries: [String];
     let posterUrl: String;
-    let rating: Float?;
+    let rating: Double?;
 
     init(
         id: String,
@@ -37,7 +37,7 @@ struct Movie: Codable, Hashable {
         languages: [String],
         countries: [String],
         posterUrl: String,
-        rating: Float?
+        rating: Double?
     ) {
         self.id = id
         self.tmdbId = tmdbId
@@ -99,7 +99,7 @@ extension Movie {
         self.languages = try container.decode([String].self, forKey: .languages)
         self.countries = try container.decode([String].self, forKey: .countries)
         self.posterUrl = try container.decode(String.self, forKey: .posterUrl)
-        self.rating = try container.decode(Float?.self, forKey: .rating)
+        self.rating = try container.decode(Double?.self, forKey: .rating)
     }
 
     func encode(to encoder: Encoder) throws {

@@ -41,7 +41,6 @@ struct MovieList: View {
 
 // MARK: Views
 private extension MovieList {
-    @ViewBuilder
     func movieView(for movie: Movie) -> some View {
         Button {
             onTap?(movie)
@@ -62,7 +61,6 @@ private extension MovieList {
         .shadow(color: Color.shadow, radius: 4, y: 2)
     }
 
-    @ViewBuilder
     func movieImage(for movie: Movie) -> some View {
         AsyncImage(url: URL(string: movie.posterUrl)) { image in
             image
@@ -75,78 +73,22 @@ private extension MovieList {
         .frame(width: 70, height: 100)
     }
 
-    @ViewBuilder
     func movieInfo(for movie: Movie) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(movie.title)
                 .font(.system(size: 22, weight: .medium))
 
-            ratingView(for: movie)
+            RatingView(
+                rating: (movie.rating ?? 0) / 2,
+                total: 5,
+                size: 12
+            )
 
             Text(movie.description)
                 .font(.system(size: 14, weight: .light))
                 .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
-    @ViewBuilder
-    func ratingView(for movie: Movie) -> some View {
-        let rating = (movie.rating ?? 0) / 2
-        let ratingString = rating != 0 ? "\(rating)" : "-"
-        let size: CGFloat = 12
-
-        Label {
-            Text("(\(ratingString))")
-                .font(.system(size: size))
-        } icon: {
-            HStack {
-                let fullStars = Int(rating)
-                let partialStar = rating - Float(fullStars)
-                let emptyStars = 5
-
-                ZStack(alignment: .leading) {
-                    // empty stars
-                    HStack {
-                        ForEach(0..<emptyStars, id: \.self) { _ in
-                            Image(systemName: "star.fill")
-                                .resizable()
-                                .frame(width: size, height: size)
-                        }
-                        .foregroundStyle(.gray)
-                    }
-
-                    HStack {
-                        // full stars
-                        if fullStars > 0 {
-                            ForEach(0..<fullStars, id: \.self) { _ in
-                                Image(systemName: "star.fill")
-                                    .resizable()
-                                    .frame(width: size, height: size)
-                            }
-                            .foregroundStyle(.yellow)
-                        }
-
-                        // partial star
-                        if partialStar > 0 {
-                            Rectangle()
-                                .foregroundStyle(.gray)
-                                .overlay(alignment: .leading) {
-                                    Rectangle()
-                                        .foregroundStyle(.yellow)
-                                        .frame(width: size * CGFloat(partialStar), height: size)
-                                }
-                                .frame(width: size, height: size)
-                                .mask {
-                                    Image(systemName: "star.fill")
-                                        .resizable()
-                                }
-                        }
-                    }
-
-                }
-            }
-        }
     }
 
     var chevron: some View {

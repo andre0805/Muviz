@@ -57,6 +57,7 @@
 		65C063F32B15491900D6A559 /* MoviesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C063F22B15491900D6A559 /* MoviesAPI.swift */; };
 		65C063F52B154C5A00D6A559 /* MoviesAPIMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C063F42B154C5A00D6A559 /* MoviesAPIMock.swift */; };
 		65C063F72B15699300D6A559 /* FBLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C063F62B15699300D6A559 /* FBLoginManager.swift */; };
+		65C063F92B166F5700D6A559 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C063F82B166F5700D6A559 /* RatingView.swift */; };
 		65F9C22D2AF7BD1000FCFDD0 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F9C22C2AF7BD1000FCFDD0 /* Color+Extensions.swift */; };
 		65F9C2302AF7C25300FCFDD0 /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F9C22F2AF7C25300FCFDD0 /* NavigationBarModifier.swift */; };
 		65F9C2322AF7C87400FCFDD0 /* SearchBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F9C2312AF7C87400FCFDD0 /* SearchBarModifier.swift */; };
@@ -116,6 +117,7 @@
 		65C063F22B15491900D6A559 /* MoviesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPI.swift; sourceTree = "<group>"; };
 		65C063F42B154C5A00D6A559 /* MoviesAPIMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesAPIMock.swift; sourceTree = "<group>"; };
 		65C063F62B15699300D6A559 /* FBLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBLoginManager.swift; sourceTree = "<group>"; };
+		65C063F82B166F5700D6A559 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		65F9C22C2AF7BD1000FCFDD0 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		65F9C22F2AF7C25300FCFDD0 /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		65F9C2312AF7C87400FCFDD0 /* SearchBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarModifier.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				65FC57112AF5A500000F43B0 /* MovieList.swift */,
+				65C063F82B166F5700D6A559 /* RatingView.swift */,
 				65F9C2352AF7F21B00FCFDD0 /* Launch Screen.storyboard */,
 			);
 			path = Components;
@@ -478,6 +481,7 @@
 				653B8C6B2AD18A7F008DD800 /* LocalStorage.swift in Sources */,
 				653B8CA42AD1C47E008DD800 /* SessionManager.swift in Sources */,
 				653B8C8C2AD18B5B008DD800 /* Application.swift in Sources */,
+				65C063F92B166F5700D6A559 /* RatingView.swift in Sources */,
 				659C953B2AF546C500FE5042 /* MovieDetailsRepository.swift in Sources */,
 				65FC57122AF5A500000F43B0 /* MovieList.swift in Sources */,
 				65C063F32B15491900D6A559 /* MoviesAPI.swift in Sources */,

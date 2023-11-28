@@ -88,63 +88,8 @@ private extension MovieDetailsView {
             .fontWeight(.bold)
     }
 
-    @ViewBuilder
     var rating: some View {
-        let rating = (movie.rating ?? 0) / 2
-        let ratingString = rating != 0 ? "\(rating)" : "-"
-        let size: CGFloat = 16
-
-        Label {
-            Text("(\(ratingString))")
-                .font(.system(size: size))
-        } icon: {
-            HStack {
-                let fullStars = Int(rating)
-                let partialStar = rating - Float(fullStars)
-                let emptyStars = 5
-
-                ZStack(alignment: .leading) {
-                    // empty stars
-                    HStack {
-                        ForEach(0..<emptyStars, id: \.self) { _ in
-                            Image(systemName: "star.fill")
-                                .resizable()
-                                .frame(width: size, height: size)
-                        }
-                        .foregroundStyle(.gray)
-                    }
-                    
-                    HStack {
-                        // full stars
-                        if fullStars > 0 {
-                            ForEach(0..<fullStars, id: \.self) { _ in
-                                Image(systemName: "star.fill")
-                                    .resizable()
-                                    .frame(width: size, height: size)
-                            }
-                            .foregroundStyle(.yellow)
-                        }
-
-                        // partial star
-                        if partialStar > 0 {
-                            Rectangle()
-                                .foregroundStyle(.gray)
-                                .overlay(alignment: .leading) {
-                                    Rectangle()
-                                        .foregroundStyle(.yellow)
-                                        .frame(width: size * CGFloat(partialStar), height: size)
-                                }
-                                .frame(width: size, height: size)
-                                .mask {
-                                    Image(systemName: "star.fill")
-                                        .resizable()
-                                }
-                        }
-                    }
-
-                }
-            }
-        }
+        RatingView(rating: (movie.rating ?? 0) / 2, total: 5)
     }
 
     var plot: some View {
