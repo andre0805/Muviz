@@ -154,7 +154,7 @@ extension Movie {
         languages: ["english"],
         countries: ["USA"],
         posterUrl: "https://m.media-amazon.com/images/I/811lT7khIrL._SY679_.jpg",
-        rating: 7.8
+        rating: 8.4
     )
 }
 
