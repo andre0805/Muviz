@@ -23,7 +23,7 @@ struct SearchMoviesView: View {
                 .ignoresSafeArea()
 
             VStack {
-                if viewModel.output.noMoviesFound || true {
+                if viewModel.output.noMoviesFound {
                     Text("Sorry, we can't find the movie you are looking for 😔")
                         .multilineTextAlignment(.center)
                         .foregroundStyle(Color.customGray)
