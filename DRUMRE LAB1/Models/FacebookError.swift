@@ -15,11 +15,11 @@ enum FacebookError: Error {
     var message: String {
         switch self {
         case .unknown(let error):
-            return error.localizedDescription
+            error.localizedDescription
         case .cancelledLogin:
-            return "User cancelled Facebook login"
+            "User cancelled Facebook login"
         case .invalidUserData:
-            return "Failed to create user from Facebook data"
+            "Failed to create user from Facebook data"
         }
     }
 }

@@ -62,6 +62,8 @@ private extension MoviesView {
     var movieList: some View {
         MovieList(movies: viewModel.output.movies) { movie in
             viewModel.input.movieTapped.send(movie)
+        } onLoadMore: {
+            viewModel.input.loadMoreMovies.send(())
         }
     }
 
@@ -125,7 +127,7 @@ private extension MoviesView {
         MoviesView {
             MoviesViewModel(
                 moviesRouter: MoviesRouter(),
-                moviesRepository: MoviesRepository(theMovieDB: TheMovieDBMock()),
+                moviesRepository: MoviesRepository(moviesApi: MoviesAPIMock()),
                 sessionManager: .shared
             )
         }

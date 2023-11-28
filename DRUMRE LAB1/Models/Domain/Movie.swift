@@ -8,126 +8,160 @@
 import Foundation
 
 struct Movie: Codable, Hashable {
-    let id: String
-    let title: String
-    let description: String
-    var language: String
-    let year: String
-    let imageUrl: String
-    var genres: [Genre]
+    let id: String;
+    let tmdbId: Int;
+    let imdbId: String;
+    let title: String;
+    let description: String;
+    let releaseDate: Date;
+    let genres: [Genre];
+    let duration: Int?;
+    let director: String;
+    let actors: [String];
+    let languages: [String];
+    let countries: [String];
+    let posterUrl: String;
+    let rating: Float?;
 
     init(
         id: String,
+        tmdbId: Int,
+        imdbId: String,
         title: String,
         description: String,
-        language: String,
-        year: String,
-        imageUrl: String,
-        genres: [Genre]
+        releaseDate: Date,
+        genres: [Genre],
+        duration: Int?,
+        director: String,
+        actors: [String],
+        languages: [String],
+        countries: [String],
+        posterUrl: String,
+        rating: Float?
     ) {
         self.id = id
+        self.tmdbId = tmdbId
+        self.imdbId = imdbId
         self.title = title
         self.description = description
-        self.language = language
-        self.year = year
-        self.imageUrl = imageUrl
+        self.releaseDate = releaseDate
         self.genres = genres
+        self.duration = duration
+        self.director = director
+        self.actors = actors
+        self.languages = languages
+        self.countries = countries
+        self.posterUrl = posterUrl
+        self.rating = rating
     }
 
-    init?(from data: [String: Any]) {
-        guard
-            let id = data["id"] as? String,
-            let title = data["title"] as? String,
-            let description = data["description"] as? String,
-            let language = data["language"] as? String,
-            let year = data["year"] as? String,
-            let imageUrl = data["imageUrl"] as? String,
-            let genresData = data["genres"] as? [[String: Any]]
-        else {
-            return nil
-        }
+    func getYear() -> String {
+        Calendar.current.component(.year, from: releaseDate).description
+    }
+}
 
-        self.id = id
-        self.title = title
-        self.description = description
-        self.language = language
-        self.year = year
-        self.imageUrl = imageUrl
-        self.genres = genresData.compactMap { Genre(from: $0) }
+// MARK: Encoder/Decoder
+extension Movie {
+    enum CodingKeys: CodingKey {
+        case id
+        case tmdbId
+        case imdbId
+        case title
+        case description
+        case releaseDate
+        case genres
+        case duration
+        case director
+        case actors
+        case languages
+        case countries
+        case posterUrl
+        case rating
     }
 
-    func toDictionary() -> [String: Any] {
-        [
-            "id": id,
-            "title": title,
-            "description": description,
-            "language": language,
-            "year": year,
-            "imageUrl": imageUrl,
-            "genres": genres.map { $0.toDictionary() }
-        ]
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.tmdbId = try container.decode(Int.self, forKey: .tmdbId)
+        self.imdbId = try container.decode(String.self, forKey: .imdbId)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.description = try container.decode(String.self, forKey: .description)
+
+        let dateString = try container.decode(String.self, forKey: .releaseDate)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+        self.releaseDate = dateFormatter.date(from: dateString) ?? .now
+
+        self.genres = try container.decode([Genre].self, forKey: .genres)
+        self.duration = try container.decode(Int?.self, forKey: .duration)
+        self.director = try container.decode(String.self, forKey: .director)
+        self.actors = try container.decode([String].self, forKey: .actors)
+        self.languages = try container.decode([String].self, forKey: .languages)
+        self.countries = try container.decode([String].self, forKey: .countries)
+        self.posterUrl = try container.decode(String.self, forKey: .posterUrl)
+        self.rating = try container.decode(Float?.self, forKey: .rating)
     }
 
-    static let mock = Movie(
-        id: UUID().uuidString,
-        title: "Titanic",
-        description: "A timeless romance and disaster",
-        language: "English",
-        year: "1912",
-        imageUrl: "https://m.media-amazon.com/images/I/811lT7khIrL._SY679_.jpg",
-        genres: [
-            .init(name: "Drama"),
-            .init(name: "Documentary")
-        ]
-    )
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.id, forKey: .id)
+        try container.encode(self.tmdbId, forKey: .tmdbId)
+        try container.encode(self.imdbId, forKey: .imdbId)
+        try container.encode(self.title, forKey: .title)
+        try container.encode(self.description, forKey: .description)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-DD"
+        let dateString = dateFormatter.string(from: self.releaseDate)
+        try container.encode(dateString, forKey: .releaseDate)
+
+        try container.encode(self.genres, forKey: .genres)
+        try container.encode(self.duration, forKey: .duration)
+        try container.encode(self.director, forKey: .director)
+        try container.encode(self.actors, forKey: .actors)
+        try container.encode(self.languages, forKey: .languages)
+        try container.encode(self.countries, forKey: .countries)
+        try container.encode(self.posterUrl, forKey: .posterUrl)
+        try container.encode(self.rating, forKey: .rating)
+    }
 }
 
 extension Movie: Equatable {
     static func ==(lhs: Self, rhs: Self) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.title == rhs.title &&
-        lhs.description == rhs.description &&
-        lhs.language == rhs.language &&
-        lhs.year == rhs.year &&
-        lhs.imageUrl == rhs.imageUrl &&
-        lhs.genres == rhs.genres
+        lhs.id == rhs.id
     }
+}
+
+extension Movie {
+    static let mock = Movie(
+        id: UUID().uuidString,
+        tmdbId: 1,
+        imdbId: UUID().uuidString,
+        title: "Titanic",
+        description: "A timeless romance and disaster",
+        releaseDate: .now,
+        genres: [
+            .init(id: 1, name: "Drama"),
+            .init(id: 2, name: "Documentary")
+        ],
+        duration: 120,
+        director: "John Doe",
+        actors: [
+            "Pero Peric",
+            "Mate Matic",
+            "Iva Ivic"
+        ],
+        languages: ["english"],
+        countries: ["USA"],
+        posterUrl: "https://m.media-amazon.com/images/I/811lT7khIrL._SY679_.jpg",
+        rating: 7.8
+    )
 }
 
 extension [Movie] {
     static let mock: [Movie] = [
-        Movie(
-            id: "1",
-            title: "Inception",
-            description: "A thief who enters the dreams of others to steal their secrets.",
-            language: "English",
-            year: "2010",
-            imageUrl: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT3VT-Ynisr-nRV7R65rC8iZ4jyJKgLHU7wvROHYTnc1X7zg_4i",
-            genres: [
-                Genre(name: "Science Fiction")
-            ]
-        ),
-        Movie(
-            id: "2",
-            title: "The Shawshank Redemption",
-            description: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-            language: "English",
-            year: "1994",
-            imageUrl: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTvYzmCt0-qgc4Yc1AgkRw9_ONiZ5RX1sg53__YVoLs28rfR8M-",
-            genres: [
-                Genre(name: "Drama")
-            ]
-        ),
-        Movie(
-            id: "3",
-            title: "The Godfather",
-            description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-            language: "English",
-            year: "1972",
-            imageUrl: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTPl8nOiQO7xcK7uC-LVrTT4cQTAU1eECiQf50_kWxZGtyUtZq_",
-            genres: [
-                Genre(name: "Crime")
-            ]
-        ),
+        .mock,
+        .mock,
+        .mock
     ]
 }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FacebookCore
-import FirebaseCore
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
@@ -15,7 +14,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         Logger.setup()
-        FirebaseApp.configure()
 
         return ApplicationDelegate.shared.application(
             application,
@@ -28,17 +26,23 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct DRUMRE_LAB1App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
+    @StateObject var moviesApi = MoviesAPI.shared
     @StateObject var sessionManager = SessionManager.shared
-    @StateObject var database = Database.shared
+    @StateObject var fbLoginManager = FBLoginManager.shared
 
     var body: some Scene {
         WindowGroup {
             RootView {
-                RootViewModel(sessionManager: sessionManager, database: database)
+                RootViewModel(
+                    moviesApi: moviesApi,
+                    sessionManager: sessionManager,
+                    fbLoginManager: fbLoginManager
+                )
             }
             .preferredColorScheme(.light)
+            .environmentObject(moviesApi)
             .environmentObject(sessionManager)
-            .environmentObject(database)
+            .environmentObject(fbLoginManager)
             .onOpenURL { url in
                 ApplicationDelegate.shared.application(
                     UIApplication.shared,

@@ -11,12 +11,14 @@ import Combine
 class LoginViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
+    private let sessionManager: SessionManager
     private let loginRepository: LoginRepositoryProtocol
 
     let input = Input()
     @Published var output = Output()
 
-    init(loginRepository: LoginRepositoryProtocol) {
+    init(sessionManager: SessionManager, loginRepository: LoginRepositoryProtocol) {
+        self.sessionManager = sessionManager
         self.loginRepository = loginRepository
         bindInput()
     }
@@ -67,9 +69,10 @@ private extension LoginViewModel {
                 loginUser()
             }
             .receive(on: DispatchQueueFactory.main)
-            .sink { [unowned self] success in
+            .delay(for: .seconds(1), scheduler: DispatchQueueFactory.main)
+            .sink { [unowned self] _ in
                 withAnimation {
-                    output.isLoading = success
+                    output.isLoading = false
                 }
             }
             .store(in: &cancellables)
@@ -78,13 +81,20 @@ private extension LoginViewModel {
 
 // MARK: Functions
 private extension LoginViewModel {
-    func loginUser() -> AnyPublisher<Bool, Never> {
+    func loginUser() -> AnyPublisher<Void, Never> {
         loginRepository.loginFB()
-            .catch { [unowned self] error in
-                DispatchQueueFactory.main.async {
-                    self.output.errorMessage = (error != .cancelledLogin) ? error.message : nil
+            .receive(on: DispatchQueueFactory.main)
+            .flatMap { [unowned self] user -> AnyPublisher<Void, Never> in
+                sessionManager.login(user)
+                return Just(()).eraseToAnyPublisher()
+            }
+            .catch { [unowned self] error -> AnyPublisher<Void, Never> in
+                if let fbError = error as? FacebookError {
+                    output.errorMessage = (fbError != .cancelledLogin) ? fbError.message : nil
+                } else {
+                    output.errorMessage = error.localizedDescription
                 }
-                return Just(false)
+                return Just(()).eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
     }

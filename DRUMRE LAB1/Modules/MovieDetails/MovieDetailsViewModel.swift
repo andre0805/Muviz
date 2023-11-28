@@ -13,7 +13,7 @@ class MovieDetailsViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     let input = Input()
-    @Published private(set) var output: Output
+    @Published var output: Output
 
     private let movie: Movie
     private let movieDetailsRepository: MovieDetailsRepositoryProtocol
@@ -44,6 +44,12 @@ extension MovieDetailsViewModel {
     struct Output {
         let movie: Movie
         var isFavorite: Bool
+        var errorMessage: String?
+
+        var isAlertPresented: Bool {
+            get { errorMessage != nil }
+            set { if !newValue { errorMessage = nil } }
+        }
     }
 }
 
@@ -55,15 +61,18 @@ private extension MovieDetailsViewModel {
 
     func bindUpdateFavoriteMovieTapped() {
         input.updateFavoriteMovieTapped
-            .sink { [unowned self] _ in
+            .receive(on: DispatchQueueFactory.background)
+            .flatMap { [unowned self] _ in
+                setFavorite(isFavorite)
+            }
+            .receive(on: DispatchQueueFactory.main)
+            .sink { [unowned self] success in
                 withAnimation {
-                    output.isFavorite.toggle()
-                }
-
-                if isFavorite {
-                    movieDetailsRepository.removeMovieFromFavorites(movie)
-                } else {
-                    movieDetailsRepository.addMovieToFavorites(movie)
+                    if success {
+                        output.isFavorite.toggle()
+                    } else {
+                        output.errorMessage = "Failed to update favorite movie"
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -77,5 +86,24 @@ private extension MovieDetailsViewModel {
             return false
         }
         return favoriteMovies.contains(where: { $0 == movie })
+    }
+
+    func setFavorite(_ isFavorite: Bool) -> AnyPublisher<Bool, Never> {
+        Future { [unowned self] promise in
+            Task {
+                do {
+                    if isFavorite {
+                        try await movieDetailsRepository.removeMovieFromFavorites(movie)
+                    } else {
+                        try await movieDetailsRepository.addMovieToFavorites(movie)
+                    }
+                    promise(.success(true))
+                } catch {
+                    log.error(error)
+                    promise(.success(false))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }

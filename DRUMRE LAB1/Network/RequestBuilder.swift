@@ -10,14 +10,16 @@ import Foundation
 class RequestBuilder {
     private var scheme: String = "https"
     private var baseURL: String
+    private var port: Int?
     private var path: String
     private var method: RequestMethod = .get
     private var headers: [String: String] = [:]
     private var queryItems: [URLQueryItem]?
     private var body: [String: Any]?
 
-    init(baseURL: String, path: String) {
+    init(baseURL: String, port: Int?, path: String) {
         self.baseURL = baseURL
+        self.port = port
         self.path = path
     }
 
@@ -25,7 +27,7 @@ class RequestBuilder {
         self.scheme = scheme
         return self
     }
-    
+
     func setMethod(_ method: RequestMethod) -> RequestBuilder {
         self.method = method
         return self
@@ -75,6 +77,7 @@ class RequestBuilder {
         var components = URLComponents()
         components.scheme = scheme
         components.host = baseURL
+        components.port = port
         components.path = path
         components.queryItems = queryItems
 
@@ -88,7 +91,7 @@ class RequestBuilder {
 
         if let body {
             do {
-                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body)
             } catch {
                 throw APIError.invalidBody
             }

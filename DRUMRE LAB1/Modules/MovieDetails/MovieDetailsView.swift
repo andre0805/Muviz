@@ -26,6 +26,12 @@ struct MovieDetailsView: View {
 
             details
         }
+        .alert(
+            "Oops! Something went wrong...",
+            isPresented: $viewModel.output.isAlertPresented,
+            actions: { Button("OK", role: .cancel, action: { }) },
+            message: { Text(viewModel.output.errorMessage ?? "") }
+        )
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             toolbarView
@@ -38,7 +44,7 @@ struct MovieDetailsView: View {
 // MARK: Views
 private extension MovieDetailsView {
     var posterView: some View {
-        AsyncImage(url: URL(string: movie.imageUrl)) { image in
+        AsyncImage(url: URL(string: movie.posterUrl)) { image in
             image
                 .resizable()
                 .scaledToFit()
@@ -51,11 +57,17 @@ private extension MovieDetailsView {
     var details: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                title
+                VStack(alignment: .leading, spacing: 6) {
+                    title
+                    rating
+                }
                 description
-                genre
+                genres
                 year
-                language
+                languages
+                director
+                actors
+                duration
             }
             .padding(.vertical, 12)
             .padding(.horizontal)
@@ -69,6 +81,60 @@ private extension MovieDetailsView {
         .scrollIndicators(.hidden)
     }
 
+    @ViewBuilder
+    var rating: some View {
+        let rating = (movie.rating ?? 0) / 2
+        let ratingString = rating != 0 ? "\(rating)" : "-"
+        Label {
+            Text("(\(ratingString))")
+                .font(.system(size: 16))
+        } icon: {
+            HStack {
+                let fullStars = Int(rating)
+                let partialStar = rating - Float(fullStars)
+                let emptyStars = 5 - fullStars - 1
+                let size: CGFloat = 16
+
+                // full stars
+                if fullStars > 0 {
+                    ForEach(0..<fullStars, id: \.self) { _ in
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .frame(width: size, height: size)
+                    }
+                    .foregroundStyle(.yellow)
+                }
+
+                // partial star
+                if partialStar > 0 {
+                    Rectangle()
+                        .foregroundStyle(.gray)
+                        .overlay(alignment: .leading) {
+                            Rectangle()
+                                .foregroundStyle(.yellow)
+                                .frame(width: size * CGFloat(partialStar), height: size)
+                        }
+                        .frame(width: size, height: size)
+                        .mask {
+                            Image(systemName: "star.fill")
+                                .resizable()
+                        }
+                }
+
+                // empty stars
+                if emptyStars > 0 {
+                    ForEach(0..<emptyStars, id: \.self) { _ in
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .frame(width: size, height: size)
+                    }
+                    .foregroundStyle(.gray)
+                }
+            }
+            .font(.system(size: 16, weight: .medium))
+        }
+    }
+
     var title: some View {
         Text(movie.title)
             .font(.largeTitle)
@@ -77,15 +143,15 @@ private extension MovieDetailsView {
 
     var description: some View {
         movieDetailView(
-            title: "Description",
+            title: "Plot",
             value: movie.description
         )
         .lineSpacing(4)
     }
 
-    var genre: some View {
+    var genres: some View {
         movieDetailView(
-            title: "Genre",
+            title: "Genres",
             value: movie.genres.map { $0.name }.joined(separator: ", ")
         )
     }
@@ -93,16 +159,35 @@ private extension MovieDetailsView {
     var year: some View {
         movieDetailView(
             title: "Year",
-            value: movie.year
+            value: movie.getYear()
         )
     }
 
-    var language: some View {
+    var languages: some View {
         movieDetailView(
-            title: "Language",
-            value: movie.language
+            title: "Languages",
+            value: movie.languages.joined(separator: ", ")
         )
     }
+
+    @ViewBuilder
+    var duration: some View {
+        if let duration = movie.duration {
+            movieDetailView(title: "Duration", value: "\(duration) min")
+        } else {
+            movieDetailView(title: "Duration", value: "N/A")
+        }
+    }
+
+    var director: some View {
+        movieDetailView(title: "Director", value: movie.director)
+    }
+
+    var actors: some View {
+        movieDetailView(title: "Actors", value: movie.actors.joined(separator: ", "))
+    }
+
+
 
     @ViewBuilder
     func movieDetailView(title: String, value: String) -> some View {
@@ -135,7 +220,7 @@ private extension MovieDetailsView {
                 movie: .mock,
                 movieDetailsRepository: MovieDetailsRepository(
                     sessionManager: .shared,
-                    database: .shared
+                    moviesApi: MoviesAPIMock()
                 )
             )
         }

@@ -9,31 +9,41 @@ import Foundation
 
 protocol MovieDetailsRepositoryProtocol {
     var sessionManager: SessionManager { get }
-    var database: Database { get }
+    var moviesApi: any MoviesAPIProtocol { get }
 
-    func addMovieToFavorites(_ movie: Movie)
-    func removeMovieFromFavorites(_ movie: Movie)
+    func addMovieToFavorites(_ movie: Movie) async throws
+    func removeMovieFromFavorites(_ movie: Movie) async throws
 }
 
 class MovieDetailsRepository: MovieDetailsRepositoryProtocol {
     let sessionManager: SessionManager
-    let database: Database
+    var moviesApi: any MoviesAPIProtocol
 
     init(
         sessionManager: SessionManager,
-        database: Database
+        moviesApi: any MoviesAPIProtocol
     ) {
         self.sessionManager = sessionManager
-        self.database = database
+        self.moviesApi = moviesApi
     }
 
-    func addMovieToFavorites(_ movie: Movie) {
-        sessionManager.currentUser!.addMovieToFavorites(movie)
-        database.updateUser(sessionManager.currentUser!)
+    func addMovieToFavorites(_ movie: Movie) async throws {
+        guard var user = sessionManager.currentUser else { return }
+        user.addMovieToFavorites(movie)
+        
+        let updatedUser = try await moviesApi.updateUser(user)
+        DispatchQueueFactory.main.async { [unowned self] in
+            sessionManager.login(updatedUser)
+        }
     }
 
-    func removeMovieFromFavorites(_ movie: Movie) {
-        sessionManager.currentUser!.removeMovieFromFavorites(movie)
-        database.updateUser(sessionManager.currentUser!)
+    func removeMovieFromFavorites(_ movie: Movie) async throws {
+        guard var user = sessionManager.currentUser else { return }
+        user.removeMovieFromFavorites(movie)
+
+        let updatedUser = try await moviesApi.updateUser(user)
+        DispatchQueueFactory.main.async { [unowned self] in
+            sessionManager.login(updatedUser)
+        }
     }
 }

@@ -6,47 +6,115 @@
 //
 
 import Combine
+import FacebookLogin
 
 protocol LoginRepositoryProtocol {
-    var sessionManager: SessionManager { get }
-    var database: Database { get }
+    var fbLoginManager: FBLoginManager { get }
+    var moviesApi: any MoviesAPIProtocol { get }
 
-    func loginFB() -> AnyPublisher<Bool, FacebookError>
+    func loginFB() -> AnyPublisher<User, Error>
 }
 
 class LoginRepository: LoginRepositoryProtocol {
-    var sessionManager: SessionManager
-    var database: Database
+    let fbLoginManager: FBLoginManager
+    let moviesApi: any MoviesAPIProtocol
 
-    init(sessionManager: SessionManager, database: Database) {
-        self.sessionManager = sessionManager
-        self.database = database
+    init(fbLoginManager: FBLoginManager, moviesApi: any MoviesAPIProtocol) {
+        self.fbLoginManager = fbLoginManager
+        self.moviesApi = moviesApi
     }
 
-    func loginFB() -> AnyPublisher<Bool, FacebookError> {
-        sessionManager.getFacebookUser()
-            .flatMap { [unowned self] fbUser -> AnyPublisher<User?, Never> in
-                guard let fbUser else { return Just(nil).eraseToAnyPublisher() }
-                return createNewUserIfNeeded(fbUser)
+    func loginFB() -> AnyPublisher<User, Error> {
+        getFacebookUser()
+            .flatMap { [unowned self] fbUser -> AnyPublisher<User, Error> in
+                createNewUserIfNeeded(fbUser)
             }
-            .handleEvents(receiveOutput: { [unowned self] user in
-                guard let user else { return }
-                sessionManager.login(user)
-            })
-            .map { $0 != nil }
             .eraseToAnyPublisher()
     }
+}
 
-    private func createNewUserIfNeeded(_ fbUser: User) -> AnyPublisher<User?, Never> {
-        database.getUser(for: fbUser.id)
-            .flatMap { [unowned self] user -> AnyPublisher<User?, Never> in
-                if let user, user != fbUser {
-                    return Just(user).eraseToAnyPublisher()
-                } else {
-                    database.createUser(fbUser)
-                    return Just(fbUser).eraseToAnyPublisher()
+// MARK: Functions
+private extension LoginRepository {
+    func getFacebookUser() -> AnyPublisher<User, Error> {
+        Future { [unowned self] promise in
+            fbLoginManager.loginManager.logIn(
+                permissions: ["public_profile", "email"],
+                from: nil
+            ) { result, error in
+                if let error {
+                    promise(.failure(error))
+                    return
+                }
+
+                guard let result, !result.isCancelled else {
+                    promise(.failure(FacebookError.cancelledLogin))
+                    return
+                }
+
+                let request = GraphRequest(
+                    graphPath: "me",
+                    parameters: ["fields": "id, name, email, picture"]
+                )
+
+                request.start { _, res, error in
+                    if let error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    guard 
+                        let fbData = res as? [String: Any],
+                        let user = User(from: fbData)
+                    else {
+                        promise(.failure(FacebookError.invalidUserData))
+                        return
+                    }
+
+                    promise(.success(user))
                 }
             }
-            .eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func createNewUserIfNeeded(_ fbUser: User) -> AnyPublisher<User, Error> {
+        Future { [unowned self] promise in
+            Task {
+                do {
+                    let user = try await moviesApi.getUser(id: fbUser.id)
+                    promise(.success(user))
+                } catch APIError.userNotFound {
+                    do {
+                        let newUser = try await moviesApi.createUser(fbUser)
+                        promise(.success(newUser))
+                    } catch {
+                        log.error(error)
+                        promise(.failure(error))
+                    }
+                } catch {
+                    log.error(error)
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+private extension User {
+    init?(from fbData: [String: Any]) {
+        guard
+            let id = fbData["id"] as? String,
+            let name = fbData["name"] as? String,
+            let email = fbData["email"] as? String
+        else {
+            return nil
+        }
+
+        let picture = fbData["picture"] as? [String: Any]
+        let pictureData = picture?["data"] as? [String: Any]
+        let pictureUrl = pictureData?["url"] as? String
+
+        self = User(id: id, name: name, email: email, imageUrl: pictureUrl)
     }
 }

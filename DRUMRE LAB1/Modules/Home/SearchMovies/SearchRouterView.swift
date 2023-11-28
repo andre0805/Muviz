@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SearchRouterView: View {
+    @EnvironmentObject private var moviesApi: MoviesAPI
     @EnvironmentObject private var sessionManager: SessionManager
+
     @StateObject private var searchRouter: SearchRouter
 
     init(searchRouter: SearchRouter) {
@@ -20,7 +22,7 @@ struct SearchRouterView: View {
             SearchMoviesView {
                 SearchMoviesViewModel(
                     searchRouter: searchRouter,
-                    searchMoviesRepository: SearchMoviesRepository(omdb: OMDB()),
+                    searchMoviesRepository: SearchMoviesRepository(moviesApi: moviesApi),
                     sessionManager: sessionManager
                 )
             }
@@ -31,8 +33,8 @@ struct SearchRouterView: View {
                         MovieDetailsViewModel(
                             movie: movie,
                             movieDetailsRepository: MovieDetailsRepository(
-                                sessionManager: .shared,
-                                database: .shared
+                                sessionManager: sessionManager,
+                                moviesApi: moviesApi
                             )
                         )
                     }
@@ -61,6 +63,8 @@ struct SearchRouterView: View {
                     }
                 )
             )
+            .environmentObject(moviesApi)
+            .environmentObject(sessionManager)
         }
     }
 }

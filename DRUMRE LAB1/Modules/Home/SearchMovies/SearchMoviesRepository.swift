@@ -8,19 +8,19 @@
 import Foundation
 
 protocol SearchMoviesRepositoryProtocol {
-    var omdb: OMDBProtocol { get }
+    var moviesApi:any  MoviesAPIProtocol { get }
 
-    func searchMovies(_ searchQuery: String) async throws -> [Movie]
+    func searchMovies(_ searchQuery: String, lastTitle: String?) async throws -> [Movie]
 }
 
 class SearchMoviesRepository: SearchMoviesRepositoryProtocol {
-    let omdb: OMDBProtocol
+    let moviesApi: any MoviesAPIProtocol
 
-    init(omdb: OMDBProtocol) {
-        self.omdb = omdb
+    init(moviesApi: any MoviesAPIProtocol) {
+        self.moviesApi = moviesApi
     }
 
-    func searchMovies(_ searchQuery: String) async throws -> [Movie] {
-        return try await omdb.searchMovies(searchQuery).mapToDomainModel()
+    func searchMovies(_ searchQuery: String, lastTitle: String? = nil) async throws -> [Movie] {
+        return try await moviesApi.searchMovies(searchQuery, lastTitle: lastTitle)
     }
 }

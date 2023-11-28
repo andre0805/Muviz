@@ -23,10 +23,16 @@ struct Storage<T: Codable> {
                 return defaultValue
             }
 
-            let value = try? JSONDecoder().decode(T.self, from: data)
+            do {
+                let value = try JSONDecoder().decode(T.self, from: data)
+                return value
+            } catch {
+                log.error(error)
+                return defaultValue
+            }
+        } 
 
-            return value ?? defaultValue
-        } set {
+        set {
             let data = try? JSONEncoder().encode(newValue)
             UserDefaults.standard.set(data, forKey: key)
         }

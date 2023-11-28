@@ -21,34 +21,6 @@ struct User: Codable, Identifiable {
         self.imageUrl = imageUrl
         self.favoriteMovies = favoriteMovies
     }
-
-    init?(from data: [String: Any])  {
-        guard
-            let id = data["id"] as? String,
-            let name = data["name"] as? String,
-            let email = data["email"] as? String
-        else {
-            return nil
-        }
-
-        self.id = id
-        self.name = name
-        self.email = email
-        self.imageUrl = data["imageUrl"] as? String
-        
-        let favoriteMoviesData = data["favoriteMovies"] as? [[String: Any]] ?? []
-        self.favoriteMovies = favoriteMoviesData.compactMap { Movie(from: $0) }
-    }
-
-    func toDictionary() -> [String: Any] {
-        [
-            "id": id,
-            "name": name,
-            "email": email,
-            "imageUrl": imageUrl ?? "",
-            "favoriteMovies": favoriteMovies.map { $0.toDictionary() }
-        ]
-    }
 }
 
 // MARK: Equatable

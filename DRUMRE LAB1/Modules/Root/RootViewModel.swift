@@ -11,15 +11,21 @@ import Combine
 class RootViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
+    private let moviesApi: any MoviesAPIProtocol
     private let sessionManager: SessionManager
-    private let database: Database
+    private let fbLoginManager: FBLoginManager
 
     let input = Input()
     @Published private(set) var output = Output()
 
-    init(sessionManager: SessionManager, database: Database) {
+    init(
+        moviesApi: any MoviesAPIProtocol,
+        sessionManager: SessionManager,
+        fbLoginManager: FBLoginManager
+    ) {
+        self.moviesApi = moviesApi
         self.sessionManager = sessionManager
-        self.database = database
+        self.fbLoginManager = fbLoginManager
         bindInput()
     }
 }
@@ -60,19 +66,13 @@ private extension RootViewModel {
     func bindSessionManager() {
         sessionManager.$currentUser
             .receive(on: DispatchQueueFactory.background)
-            .flatMap { [unowned self] user in
-                guard let user else { return Just(user).eraseToAnyPublisher() }
-                return database.getUser(for: user.id)
+            .flatMap { [unowned self] user -> AnyPublisher<User?, Never> in
+                guard let user else { return Just(nil).eraseToAnyPublisher() }
+                return getUser(id: user.id)
             }
             .receive(on: DispatchQueueFactory.main)
             .sink { [unowned self] user in
-                if let user, user != sessionManager.currentUser {
-                    sessionManager.login(user)
-                }
-
-                withAnimation {
-                    output.state = user != nil ? .home : .authRequired
-                }
+                handleUserChanged(user: user)
             }
             .store(in: &cancellables)
     }
@@ -80,4 +80,33 @@ private extension RootViewModel {
 
 // MARK: Functions
 private extension RootViewModel {
+    func getUser(id: String) -> AnyPublisher<User?, Never> {
+        Future { [unowned self] promise in
+            Task {
+                do {
+                    let user = try await moviesApi.getUser(id: id)
+                    promise(.success(user))
+                } catch {
+                    log.error(error)
+                    promise(.success(nil))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func handleUserChanged(user: User?) {
+        if let user {
+            // prevent recursion
+            if user != sessionManager.currentUser {
+                sessionManager.login(user)
+            }
+        } else {
+            fbLoginManager.loginManager.logOut()
+        }
+
+        withAnimation {
+            output.state = user != nil ? .home : .authRequired
+        }
+    }
 }

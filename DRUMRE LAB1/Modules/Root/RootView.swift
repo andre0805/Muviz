@@ -7,12 +7,14 @@
 
 import SwiftUI
 import Combine
+import FacebookLogin
 
 struct RootView: View {
     @StateObject private var viewModel: RootViewModel
 
+    @EnvironmentObject var moviesApi: MoviesAPI
     @EnvironmentObject var sessionManager: SessionManager
-    @EnvironmentObject var database: Database
+    @EnvironmentObject var fbLoginManager: FBLoginManager
 
     init(_ viewModel: @escaping () -> RootViewModel) {
         self._viewModel = StateObject(wrappedValue: viewModel())
@@ -51,9 +53,10 @@ private extension RootView {
         NavigationStack {
             LoginView {
                 LoginViewModel(
+                    sessionManager: sessionManager,
                     loginRepository: LoginRepository(
-                        sessionManager: sessionManager,
-                        database: database
+                        fbLoginManager: fbLoginManager,
+                        moviesApi: moviesApi
                     )
                 )
             }
@@ -61,17 +64,22 @@ private extension RootView {
     }
 
     var homeView: some View {
-        HomeView {
-            HomeViewModel()
-        }
+        HomeView()
+            .environmentObject(sessionManager)
+            .environmentObject(moviesApi)
     }
 }
 
 #Preview {
     RootView {
-        RootViewModel(sessionManager: .shared, database: .shared)
+        RootViewModel(
+            moviesApi: MoviesAPIMock(),
+            sessionManager: .shared,
+            fbLoginManager: .shared
+        )
     }
+    .environmentObject(MoviesAPI.shared)
     .environmentObject(SessionManager.shared)
-    .environmentObject(Database.shared)
+    .environmentObject(FBLoginManager.shared)
 }
 

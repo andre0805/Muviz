@@ -9,8 +9,9 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
+    @EnvironmentObject private var moviesApi: MoviesAPI
     @EnvironmentObject private var sessionManager: SessionManager
-    @StateObject private var viewModel: HomeViewModel
+
     @StateObject private var moviesRouter: MoviesRouter
     @StateObject private var searchRouter: SearchRouter
 
@@ -19,8 +20,7 @@ struct HomeView: View {
     private let activeColor = Color.blackPrimary
     private let inactiveColor = Color.blackPrimary.opacity(0.3)
 
-    init(_ viewModel: @escaping () -> HomeViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel())
+    init() {
         self._searchRouter = StateObject(wrappedValue: SearchRouter())
         self._moviesRouter = StateObject(wrappedValue: MoviesRouter())
     }
@@ -51,10 +51,14 @@ private extension HomeView {
 
     var moviesTab: some View {
         MoviesRouterView(moviesRouter: moviesRouter)
+            .environmentObject(moviesApi)
+            .environmentObject(sessionManager)
     }
 
     var searchTab: some View {
         SearchRouterView(searchRouter: searchRouter)
+            .environmentObject(moviesApi)
+            .environmentObject(sessionManager)
     }
 
 
@@ -155,8 +159,7 @@ private extension HomeView {
 }
 
 #Preview {
-    HomeView {
-        HomeViewModel()
-    }
-    .environmentObject(SessionManager.shared)
+    HomeView()
+        .environmentObject(SessionManager.shared)
+        .environmentObject(MoviesAPI.shared)
 }

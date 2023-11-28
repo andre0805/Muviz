@@ -15,7 +15,6 @@ class MoviesViewModel: ObservableObject {
     private let moviesRepository: MoviesRepositoryProtocol
     private let sessionManager: SessionManager
 
-
     var genres: [Genre] = []
     var movies: [Movie] = []
 
@@ -44,6 +43,7 @@ extension MoviesViewModel {
         let userButtonTapped = PassthroughSubject<Void, Never>()
         let selectGenreTapped = PassthroughSubject<Genre?, Never>()
         let movieTapped = PassthroughSubject<Movie, Never>()
+        let loadMoreMovies = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
@@ -63,6 +63,7 @@ private extension MoviesViewModel {
         bindUserButtonTapped()
         bindSelectGenreTapped()
         bindMovieTapped()
+        bindLoadMoreMovies()
     }
 
     func bindViewDidAppear() {
@@ -75,12 +76,17 @@ private extension MoviesViewModel {
             })
             .receive(on: DispatchQueueFactory.background)
             .flatMap { [unowned self] _ in
-                return fetchGenres()
+                fetchGenres()
             }
-            .receive(on: DispatchQueueFactory.background)
+            .handleEvents(receiveOutput: { [unowned self] genres in
+                self.genres = genres
+            })
             .flatMap { [unowned self] _ in
-                return fetchMovies()
+                fetchMovies()
             }
+            .handleEvents(receiveOutput: { [unowned self] movies in
+                self.movies = movies
+            })
             .receive(on: DispatchQueueFactory.main)
             .sink { [unowned self] _ in
                 withAnimation {
@@ -122,11 +128,33 @@ private extension MoviesViewModel {
             }
             .store(in: &cancellables)
     }
+
+    func bindLoadMoreMovies() {
+        input.loadMoreMovies
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueueFactory.background)
+            .receive(on: DispatchQueueFactory.background)
+            .flatMap { [unowned self] _ in
+                fetchMovies()
+            }
+            .receive(on: DispatchQueueFactory.main)
+            .sink { [unowned self] movies in
+                withAnimation {
+                    self.movies.append(contentsOf: movies)
+                    if let selectedGenre = output.selectedGenre {
+                        let filteredMovies = movies.filter { $0.genres.contains(selectedGenre) }
+                        output.movies.append(contentsOf: filteredMovies)
+                    } else {
+                        output.movies.append(contentsOf: movies)
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: Functions
 private extension MoviesViewModel {
-    func fetchGenres() -> AnyPublisher<Void, Never> {
+    func fetchGenres() -> AnyPublisher<[Genre], Never> {
         Future<[Genre], Never> { [unowned self] promise in
             Task {
                 do {
@@ -138,23 +166,14 @@ private extension MoviesViewModel {
                 }
             }
         }
-        .handleEvents(receiveOutput: { [unowned self] genres in
-            self.genres = genres
-        })
-        .map { _ in () }
         .eraseToAnyPublisher()
     }
 
-    func fetchMovies() -> AnyPublisher<Void, Never> {
+    func fetchMovies() -> AnyPublisher<[Movie], Never> {
         Future<[Movie], Never> { [unowned self] promise in
             Task {
                 do {
-                    var movies: [Movie] = []
-                    for page in 1...20 {
-                        let newMovies = try await moviesRepository.getMovies(page: page)
-                        movies.append(contentsOf: newMovies)
-                    }
-                    movies.removeDuplicates()
+                    let movies = try await moviesRepository.getMovies(lastTitle: movies.last?.title)
                     promise(.success(movies))
                 } catch {
                     log.error(error)
@@ -162,10 +181,6 @@ private extension MoviesViewModel {
                 }
             }
         }
-        .handleEvents(receiveOutput: { [unowned self] movies in
-            self.movies = movies
-        })
-        .map { _ in () }
         .eraseToAnyPublisher()
     }
 }

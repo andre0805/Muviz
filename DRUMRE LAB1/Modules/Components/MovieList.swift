@@ -10,17 +10,32 @@ import SwiftUI
 struct MovieList: View {
     let movies: [Movie]
     let onTap: ((Movie) -> Void)?
+    let onLoadMore: (() -> Void)?
+
+    init(movies: [Movie], onTap: ((Movie) -> Void)?, onLoadMore: (() -> Void)? = nil) {
+        self.movies = movies
+        self.onTap = onTap
+        self.onLoadMore = onLoadMore
+    }
 
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(movies, id: \.id) { movie in
                     movieView(for: movie)
+                        .onAppear {
+                            if shouldLoadMore(movie) { onLoadMore?() }
+                        }
                 }
             }
             .padding(.horizontal)
         }
         .background(Color.backgroundColor)
+    }
+
+    private func shouldLoadMore(_ movie: Movie) -> Bool {
+        guard let index = movies.firstIndex(of: movie) else { return false }
+        return index > movies.count - 5
     }
 }
 
@@ -49,7 +64,7 @@ private extension MovieList {
 
     @ViewBuilder
     func movieImage(for movie: Movie) -> some View {
-        AsyncImage(url: URL(string: movie.imageUrl)) { image in
+        AsyncImage(url: URL(string: movie.posterUrl)) { image in
             image
                 .resizable()
                 .scaledToFit()
@@ -81,5 +96,5 @@ private extension MovieList {
 }
 
 #Preview {
-    MovieList(movies: .mock, onTap: nil)
+    MovieList(movies: .mock, onTap: nil, onLoadMore: nil)
 }

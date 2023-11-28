@@ -74,9 +74,10 @@ private extension LoginView {
     NavigationStack {
         LoginView {
             LoginViewModel(
+                sessionManager: .shared,
                 loginRepository: LoginRepository(
-                    sessionManager: .shared,
-                    database: .shared
+                    fbLoginManager: .shared,
+                    moviesApi: MoviesAPIMock()
                 )
             )
         }

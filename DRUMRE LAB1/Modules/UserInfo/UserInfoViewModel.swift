@@ -15,11 +15,17 @@ class UserInfoViewModel: ObservableObject {
     @Published private(set) var output: Output
 
     private let userInfoRouter: UserInfoRouter
-    private let sessionManager = SessionManager.shared
+    private let sessionManager: SessionManager
 
-    init(userInfoRouter: UserInfoRouter) {
+    init(
+        userInfoRouter: UserInfoRouter,
+        sessionManager: SessionManager
+    ) {
         self.userInfoRouter = userInfoRouter
+        self.sessionManager = sessionManager
+
         self.output = Output(user: sessionManager.currentUser ?? .mock)
+        
         bindInput()
     }
 }

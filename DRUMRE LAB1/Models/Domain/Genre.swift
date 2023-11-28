@@ -8,25 +8,11 @@
 import Foundation
 
 struct Genre: Codable, Hashable {
+    let id: Int
     let name: String
 
-    init(name: String) {
+    init(id: Int, name: String) {
+        self.id = id
         self.name = name
-    }
-
-    init?(from data: [String: Any]) {
-        guard
-            let name = data["name"] as? String
-        else {
-            return nil
-        }
-
-        self.name = name
-    }
-
-    func toDictionary() -> [String: Any] {
-        [
-            "name": name
-        ]
     }
 }

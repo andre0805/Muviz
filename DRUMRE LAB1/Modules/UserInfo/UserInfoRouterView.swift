@@ -9,6 +9,8 @@ import SwiftUI
 
 struct UserInfoRouterView: View {
     @EnvironmentObject private var sessionManager: SessionManager
+    @EnvironmentObject private var moviesApi: MoviesAPI
+
     @StateObject private var userInfoRouter: UserInfoRouter
 
     init(userInfoRouter: UserInfoRouter) {
@@ -18,7 +20,10 @@ struct UserInfoRouterView: View {
     var body: some View {
         NavigationStack(path: $userInfoRouter.navigationPath) { [unowned userInfoRouter] in
             UserInfoView {
-                UserInfoViewModel(userInfoRouter: userInfoRouter)
+                UserInfoViewModel(
+                    userInfoRouter: userInfoRouter,
+                    sessionManager: sessionManager
+                )
             }
             .navigationDestination(for: UserInfoPushDestination.self) { destination in
                 switch destination {
@@ -27,8 +32,8 @@ struct UserInfoRouterView: View {
                         MovieDetailsViewModel(
                             movie: movie,
                             movieDetailsRepository: MovieDetailsRepository(
-                                sessionManager: .shared,
-                                database: .shared
+                                sessionManager: sessionManager,
+                                moviesApi: moviesApi
                             )
                         )
                     }

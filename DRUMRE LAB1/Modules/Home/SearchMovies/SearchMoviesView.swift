@@ -23,15 +23,17 @@ struct SearchMoviesView: View {
                 .ignoresSafeArea()
 
             VStack {
-                if viewModel.output.noMoviesFound {
+                if viewModel.output.noMoviesFound || true {
                     Text("Sorry, we can't find the movie you are looking for 😔")
                         .multilineTextAlignment(.center)
                         .foregroundStyle(Color.customGray)
                         .frame(width: 300, alignment: .center)
-                        .shadow(color: Color.customGray, radius: 4, y: 2)
+                        .shadow(color: Color.customGray, radius: 6, y: 2)
                 } else {
                     MovieList(movies: viewModel.output.movies) { movie in
                         viewModel.input.movieTapped.send(movie)
+                    } onLoadMore: {
+                        viewModel.input.loadMoreMovies.send()
                     }
                     .isLoading(viewModel.output.isLoading)
                 }
@@ -93,7 +95,7 @@ private extension SearchMoviesView {
         SearchMoviesView {
             SearchMoviesViewModel(
                 searchRouter: SearchRouter(),
-                searchMoviesRepository: SearchMoviesRepository(omdb: OMDBMock()),
+                searchMoviesRepository: SearchMoviesRepository(moviesApi: MoviesAPIMock()),
                 sessionManager: .shared
             )
         }

@@ -62,7 +62,7 @@ private extension UserInfoView {
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Color.customGray)
                     .frame(width: 300, alignment: .center)
-                    .shadow(color: Color.customGray, radius: 4, y: 2)
+                    .shadow(color: Color.customGray, radius: 6, y: 2)
 
                 Spacer()
                 Spacer()
@@ -117,7 +117,8 @@ private extension UserInfoView {
     NavigationStack {
         UserInfoView {
             UserInfoViewModel(
-                userInfoRouter: UserInfoRouter()
+                userInfoRouter: UserInfoRouter(),
+                sessionManager: .shared
             )
         }
     }

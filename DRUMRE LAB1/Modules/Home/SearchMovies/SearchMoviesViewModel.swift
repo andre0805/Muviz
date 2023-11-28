@@ -11,7 +11,8 @@ import Combine
 class SearchMoviesViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
-    var movies: [Movie] = []
+    private var searchQuery = ""
+    private var movies: [Movie] = []
 
     private let searchRouter: SearchRouter
     private let searchMoviesRepository: SearchMoviesRepositoryProtocol
@@ -41,6 +42,7 @@ extension SearchMoviesViewModel {
         let userButtonTapped = PassthroughSubject<Void, Never>()
         let searchInput = PassthroughSubject<String, Never>()
         let movieTapped = PassthroughSubject<Movie, Never>()
+        let loadMoreMovies = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
@@ -58,6 +60,7 @@ private extension SearchMoviesViewModel {
         bindUserButtonTapped()
         bindSearchInput()
         bindMovieTapped()
+        bindLoadMoreMovies()
     }
 
     func bindUserButtonTapped() {
@@ -72,6 +75,8 @@ private extension SearchMoviesViewModel {
         input.searchInput
             .debounce(for: .seconds(0.5), scheduler: DispatchQueueFactory.main)
             .handleEvents(receiveOutput: { [unowned self] search in
+                self.searchQuery = search
+
                 withAnimation {
                     output.isLoading = true
                     output.movies.removeAll()
@@ -101,6 +106,29 @@ private extension SearchMoviesViewModel {
             }
             .store(in: &cancellables)
     }
+
+    func bindLoadMoreMovies() {
+        input.loadMoreMovies
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueueFactory.main)
+            .handleEvents(receiveOutput: { [unowned self] _ in
+                withAnimation {
+                    output.isLoading = true
+                }
+            })
+            .receive(on: DispatchQueueFactory.background)
+            .flatMap { [unowned self] _ in
+                searchMovies(searchQuery)
+            }
+            .receive(on: DispatchQueueFactory.main)
+            .sink { [unowned self] movies in
+                withAnimation {
+                    self.movies.append(contentsOf: movies)
+                    self.output.movies.append(contentsOf: movies)
+                    self.output.isLoading = false
+                }
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: Functions
@@ -109,7 +137,7 @@ private extension SearchMoviesViewModel {
         Future { [unowned self] promise in
             Task {
                 do {
-                    let movies: [Movie] = try await searchMoviesRepository.searchMovies(searchQuery)
+                    let movies: [Movie] = try await searchMoviesRepository.searchMovies(searchQuery, lastTitle: movies.last?.title)
                     promise(.success(movies))
                 } catch {
                     log.error(error)
