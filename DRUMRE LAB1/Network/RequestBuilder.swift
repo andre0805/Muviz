@@ -17,7 +17,7 @@ class RequestBuilder {
     private var queryItems: [URLQueryItem]?
     private var body: [String: Any]?
 
-    init(baseURL: String, port: Int?, path: String) {
+    init(baseURL: String, port: Int? = nil, path: String) {
         self.baseURL = baseURL
         self.port = port
         self.path = path

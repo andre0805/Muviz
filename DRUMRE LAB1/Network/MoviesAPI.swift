@@ -19,15 +19,14 @@ protocol MoviesAPIProtocol: ObservableObject {
 }
 
 class MoviesAPI: MoviesAPIProtocol {
-    let baseURL = "localhost"
+    let baseURL = "drumre-lab1-backend.onrender.com"
 
     static let shared = MoviesAPI()
 
     private init() { }
 
     func getGenres() async throws -> [Genre] {
-        let urlRequest = try RequestBuilder(baseURL: baseURL, port: 3000, path: "/genres")
-            .setScheme("http")
+        let urlRequest = try RequestBuilder(baseURL: baseURL, path: "/genres")
             .build()
 
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
@@ -48,8 +47,7 @@ class MoviesAPI: MoviesAPIProtocol {
     }
 
     func getMovies(lastTitle: String? = nil) async throws -> [Movie] {
-        let urlRequest = try RequestBuilder(baseURL: baseURL,port: 3000,path: "/movies")
-            .setScheme("http")
+        let urlRequest = try RequestBuilder(baseURL: baseURL, path: "/movies")
             .addQueryItem(lastTitle, forKey: "lastTitle")
             .addQueryItem("20", forKey: "pageSize")
             .build()
@@ -72,8 +70,7 @@ class MoviesAPI: MoviesAPIProtocol {
     }
 
     func searchMovies(_ searchQuery: String, lastTitle: String? = nil) async throws -> [Movie] {
-        let urlRequest = try RequestBuilder(baseURL: baseURL, port: 3000, path: "/movies/search")
-            .setScheme("http")
+        let urlRequest = try RequestBuilder(baseURL: baseURL, path: "/movies/search")
             .addQueryItem(searchQuery, forKey: "searchQuery")
             .addQueryItem(lastTitle, forKey: "lastTitle")
             .build()
@@ -90,8 +87,7 @@ class MoviesAPI: MoviesAPIProtocol {
 
 
     func getUser(id: String) async throws -> User {
-        let urlRequest = try RequestBuilder(baseURL: baseURL, port: 3000, path: "/users/\(id)")
-            .setScheme("http")
+        let urlRequest = try RequestBuilder(baseURL: baseURL, path: "/users/\(id)")
             .build()
 
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
@@ -109,8 +105,7 @@ class MoviesAPI: MoviesAPIProtocol {
     }
 
     func createUser(_ user: User) async throws -> User {
-        let urlRequest = try RequestBuilder(baseURL: baseURL, port: 3000, path: "/users")
-            .setScheme("http")
+        let urlRequest = try RequestBuilder(baseURL: baseURL, path: "/users")
             .setMethod(.post)
             .addHeader("application/json", forKey: "Content-Type")
             .addBody(user.id, forKey: "id")
@@ -135,8 +130,7 @@ class MoviesAPI: MoviesAPIProtocol {
     }
 
     func updateUser(_ user: User) async throws -> User {
-        let urlRequest = try RequestBuilder(baseURL: baseURL, port: 3000, path: "/users")
-            .setScheme("http")
+        let urlRequest = try RequestBuilder(baseURL: baseURL, path: "/users")
             .setMethod(.put)
             .addHeader("application/json", forKey: "Content-Type")
             .addBody(user.id, forKey: "id")
