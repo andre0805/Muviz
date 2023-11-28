@@ -28,7 +28,7 @@ struct MovieList: View {
                         }
                 }
             }
-            .padding(.horizontal)
+            .padding()
         }
         .background(Color.backgroundColor)
     }

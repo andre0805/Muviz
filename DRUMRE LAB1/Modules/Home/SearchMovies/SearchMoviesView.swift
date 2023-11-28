@@ -18,28 +18,25 @@ struct SearchMoviesView: View {
     }
 
     var body: some View {
-        ZStack {
-            Color.backgroundColor
-                .ignoresSafeArea()
-
-            VStack {
-                if viewModel.output.noMoviesFound {
-                    Text("Sorry, we can't find the movie you are looking for 😔")
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(Color.customGray)
-                        .frame(width: 300, alignment: .center)
-                        .shadow(color: Color.customGray, radius: 6, y: 2)
-                } else {
-                    MovieList(movies: viewModel.output.movies) { movie in
-                        viewModel.input.movieTapped.send(movie)
-                    } onLoadMore: {
-                        viewModel.input.loadMoreMovies.send()
-                    }
-                    .isLoading(viewModel.output.isLoading)
+        VStack(spacing: 16) {
+            if viewModel.output.noMoviesFound {
+                Text("Sorry, we can't find the movie you are looking for 😔")
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(Color.customGray)
+                    .frame(width: 300, alignment: .center)
+                    .shadow(color: Color.customGray, radius: 6, y: 2)
+            } else {
+                MovieList(movies: viewModel.output.movies) { movie in
+                    viewModel.input.movieTapped.send(movie)
+                } onLoadMore: {
+                    viewModel.input.loadMoreMovies.send()
                 }
+                .isLoading(viewModel.output.isLoading)
             }
+
+            Spacer()
         }
-        .padding(.bottom, -16)
+        .background(Color.backgroundColor)
         .searchable(text: $searchText, prompt: "Search movies...")
         .searchBarColor(tintColor: .blackPrimary)
         .navigationBarColor(backgroundColor: Color.backgroundColor, titleColor: Color.blackPrimary)

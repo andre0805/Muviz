@@ -28,7 +28,6 @@ struct HomeView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             tabViews
-                .padding(.bottom, 12)
 
             tabBar
                 .ignoresSafeArea(.keyboard, edges: .bottom)

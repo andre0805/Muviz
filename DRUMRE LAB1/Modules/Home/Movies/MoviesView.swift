@@ -26,7 +26,6 @@ struct MoviesView: View {
 
             Spacer()
         }
-        .padding(.bottom, -16)
         .background(Color.backgroundColor)
         .isLoading(viewModel.output.isLoading)
         .navigationBarColor(backgroundColor: Color.backgroundColor, titleColor: Color.blackPrimary)
