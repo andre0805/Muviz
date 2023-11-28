@@ -61,7 +61,7 @@ private extension MovieDetailsView {
                     title
                     rating
                 }
-                description
+                plot
                 genres
                 year
                 languages
@@ -69,8 +69,9 @@ private extension MovieDetailsView {
                 actors
                 duration
             }
-            .padding(.vertical, 12)
             .padding(.horizontal)
+            .padding(.top)
+            .padding(.bottom, 24)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.backgroundColor)
             .clipShape(
@@ -81,19 +82,26 @@ private extension MovieDetailsView {
         .scrollIndicators(.hidden)
     }
 
+    var title: some View {
+        Text(movie.title)
+            .font(.largeTitle)
+            .fontWeight(.bold)
+    }
+
     @ViewBuilder
     var rating: some View {
         let rating = (movie.rating ?? 0) / 2
         let ratingString = rating != 0 ? "\(rating)" : "-"
+        let size: CGFloat = 16
+
         Label {
             Text("(\(ratingString))")
-                .font(.system(size: 16))
+                .font(.system(size: size))
         } icon: {
             HStack {
                 let fullStars = Int(rating)
                 let partialStar = rating - Float(fullStars)
                 let emptyStars = 5 - fullStars - 1
-                let size: CGFloat = 16
 
                 // full stars
                 if fullStars > 0 {
@@ -131,17 +139,10 @@ private extension MovieDetailsView {
                     .foregroundStyle(.gray)
                 }
             }
-            .font(.system(size: 16, weight: .medium))
         }
     }
 
-    var title: some View {
-        Text(movie.title)
-            .font(.largeTitle)
-            .fontWeight(.bold)
-    }
-
-    var description: some View {
+    var plot: some View {
         movieDetailView(
             title: "Plot",
             value: movie.description
@@ -170,15 +171,6 @@ private extension MovieDetailsView {
         )
     }
 
-    @ViewBuilder
-    var duration: some View {
-        if let duration = movie.duration {
-            movieDetailView(title: "Duration", value: "\(duration) min")
-        } else {
-            movieDetailView(title: "Duration", value: "N/A")
-        }
-    }
-
     var director: some View {
         movieDetailView(title: "Director", value: movie.director)
     }
@@ -187,7 +179,14 @@ private extension MovieDetailsView {
         movieDetailView(title: "Actors", value: movie.actors.joined(separator: ", "))
     }
 
-
+    @ViewBuilder
+    var duration: some View {
+        if let duration = movie.duration {
+            movieDetailView(title: "Duration", value: "\(duration) min")
+        } else {
+            movieDetailView(title: "Duration", value: "N/A")
+        }
+    }
 
     @ViewBuilder
     func movieDetailView(title: String, value: String) -> some View {

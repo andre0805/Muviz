@@ -81,10 +81,67 @@ private extension MovieList {
             Text(movie.title)
                 .font(.system(size: 22, weight: .medium))
 
+            ratingView(for: movie)
+
             Text(movie.description)
                 .font(.system(size: 14, weight: .light))
+                .padding(.top, 4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+
+    @ViewBuilder
+    func ratingView(for movie: Movie) -> some View {
+        let rating = (movie.rating ?? 0) / 2
+        let ratingString = rating != 0 ? "\(rating)" : "-"
+        let size: CGFloat = 12
+
+        Label {
+            Text("(\(ratingString))")
+                .font(.system(size: size))
+        } icon: {
+            HStack {
+                let fullStars = Int(rating)
+                let partialStar = rating - Float(fullStars)
+                let emptyStars = 5 - fullStars - 1
+
+                // full stars
+                if fullStars > 0 {
+                    ForEach(0..<fullStars, id: \.self) { _ in
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .frame(width: size, height: size)
+                    }
+                    .foregroundStyle(.yellow)
+                }
+
+                // partial star
+                if partialStar > 0 {
+                    Rectangle()
+                        .foregroundStyle(.gray)
+                        .overlay(alignment: .leading) {
+                            Rectangle()
+                                .foregroundStyle(.yellow)
+                                .frame(width: size * CGFloat(partialStar), height: size)
+                        }
+                        .frame(width: size, height: size)
+                        .mask {
+                            Image(systemName: "star.fill")
+                                .resizable()
+                        }
+                }
+
+                // empty stars
+                if emptyStars > 0 {
+                    ForEach(0..<emptyStars, id: \.self) { _ in
+                        Image(systemName: "star.fill")
+                            .resizable()
+                            .frame(width: size, height: size)
+                    }
+                    .foregroundStyle(.gray)
+                }
+            }
+        }
     }
 
     var chevron: some View {
