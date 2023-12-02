@@ -5,7 +5,7 @@
 //  Andre Flego
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class UserInfoViewModel: ObservableObject {
@@ -27,6 +27,7 @@ class UserInfoViewModel: ObservableObject {
         self.output = Output(user: sessionManager.currentUser ?? .mock)
         
         bindInput()
+        bindUser()
     }
 }
 
@@ -39,7 +40,7 @@ extension UserInfoViewModel {
 
     struct Output {
         let title: String = "User info"
-        let user: User
+        var user: User
     }
 }
 
@@ -71,4 +72,15 @@ private extension UserInfoViewModel {
 
 // MARK: Functions
 private extension UserInfoViewModel {
+    func bindUser() {
+        sessionManager.$currentUser
+            .sink { [unowned self] user in
+                guard let user else { return }
+                
+                withAnimation {
+                    output.user = user
+                }
+            }
+            .store(in: &cancellables)
+    }
 }

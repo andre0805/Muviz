@@ -61,6 +61,11 @@ private extension MovieDetailsViewModel {
 
     func bindUpdateFavoriteMovieTapped() {
         input.updateFavoriteMovieTapped
+            .handleEvents(receiveOutput: { [unowned self] _ in
+                withAnimation {
+                    output.isFavorite.toggle()
+                }
+            })
             .receive(on: DispatchQueueFactory.background)
             .flatMap { [unowned self] _ in
                 setFavorite(isFavorite)
@@ -68,9 +73,8 @@ private extension MovieDetailsViewModel {
             .receive(on: DispatchQueueFactory.main)
             .sink { [unowned self] success in
                 withAnimation {
-                    if success {
+                    if !success {
                         output.isFavorite.toggle()
-                    } else {
                         output.errorMessage = "Failed to update favorite movie"
                     }
                 }

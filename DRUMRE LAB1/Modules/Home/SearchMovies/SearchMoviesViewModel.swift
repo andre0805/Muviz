@@ -78,11 +78,12 @@ private extension SearchMoviesViewModel {
                 self.searchQuery = search
 
                 withAnimation {
-                    output.isLoading = true
+                    output.isLoading = !search.isEmpty
                     output.movies.removeAll()
                     output.noMoviesFound = false
                 }
             })
+            .filter { !$0.isEmpty }
             .receive(on: DispatchQueueFactory.networking)
             .flatMap { [unowned self] searchQuery -> AnyPublisher<[Movie], Never> in
                 return searchMovies(searchQuery)
@@ -123,8 +124,8 @@ private extension SearchMoviesViewModel {
             .sink { [unowned self] movies in
                 withAnimation {
                     self.movies.append(contentsOf: movies)
-                    self.output.movies.append(contentsOf: movies)
-                    self.output.isLoading = false
+                    output.movies.append(contentsOf: movies)
+                    output.isLoading = false
                 }
             }
             .store(in: &cancellables)

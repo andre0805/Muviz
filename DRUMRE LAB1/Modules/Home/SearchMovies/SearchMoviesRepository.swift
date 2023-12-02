@@ -21,6 +21,7 @@ class SearchMoviesRepository: SearchMoviesRepositoryProtocol {
     }
 
     func searchMovies(_ searchQuery: String, lastTitle: String? = nil) async throws -> [Movie] {
+        guard !searchQuery.isEmpty else { return [] }
         return try await moviesApi.searchMovies(searchQuery, lastTitle: lastTitle)
     }
 }

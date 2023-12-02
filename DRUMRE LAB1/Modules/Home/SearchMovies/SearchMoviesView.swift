@@ -20,11 +20,13 @@ struct SearchMoviesView: View {
     var body: some View {
         VStack(spacing: 16) {
             if viewModel.output.noMoviesFound {
+                Spacer()
                 Text("Sorry, we can't find the movie you are looking for 😔")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(Color.customGray)
-                    .frame(width: 300, alignment: .center)
+                    .frame(width: 250, alignment: .center)
                     .shadow(color: Color.customGray, radius: 6, y: 2)
+                Spacer()
             } else {
                 MovieList(movies: viewModel.output.movies) { movie in
                     viewModel.input.movieTapped.send(movie)
@@ -36,6 +38,7 @@ struct SearchMoviesView: View {
 
             Spacer()
         }
+        .frame(maxWidth: .infinity)
         .background(Color.backgroundColor)
         .searchable(text: $searchText, prompt: "Search movies...")
         .searchBarColor(tintColor: .blackPrimary)
