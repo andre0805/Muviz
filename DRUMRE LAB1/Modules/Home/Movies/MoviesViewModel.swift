@@ -70,9 +70,7 @@ private extension MoviesViewModel {
         input.viewDidAppear
             .prefix(1)
             .handleEvents(receiveOutput: { [unowned self] _ in
-                withAnimation {
-                    output.isLoading = true
-                }
+                output.isLoading = true
             })
             .receive(on: DispatchQueueFactory.background)
             .flatMap { [unowned self] _ in
@@ -131,21 +129,30 @@ private extension MoviesViewModel {
 
     func bindLoadMoreMovies() {
         input.loadMoreMovies
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueueFactory.background)
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueueFactory.main)
+            .handleEvents(receiveOutput: { [unowned self] _ in
+                withAnimation {
+                    output.isLoading = true
+                }
+            })
             .receive(on: DispatchQueueFactory.background)
             .flatMap { [unowned self] _ in
                 fetchMovies()
             }
+            .delay(for: 1, scheduler: DispatchQueueFactory.main)
             .receive(on: DispatchQueueFactory.main)
             .sink { [unowned self] movies in
                 withAnimation {
                     self.movies.append(contentsOf: movies)
+
                     if let selectedGenre = output.selectedGenre {
                         let filteredMovies = movies.filter { $0.genres.contains(selectedGenre) }
                         output.movies.append(contentsOf: filteredMovies)
                     } else {
                         output.movies.append(contentsOf: movies)
                     }
+
+                    output.isLoading = false
                 }
             }
             .store(in: &cancellables)

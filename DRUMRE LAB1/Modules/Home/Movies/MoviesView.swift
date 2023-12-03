@@ -23,11 +23,11 @@ struct MoviesView: View {
 
             movieList
                 .transition(.move(edge: .bottom))
+                .isLoading(viewModel.output.isLoading)
 
             Spacer()
         }
         .background(Color.backgroundColor)
-        .isLoading(viewModel.output.isLoading)
         .navigationBarColor(backgroundColor: Color.backgroundColor, titleColor: Color.blackPrimary)
         .navigationTitle(viewModel.output.title)
         .toolbar {

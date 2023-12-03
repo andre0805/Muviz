@@ -21,19 +21,15 @@ struct SearchMoviesView: View {
         VStack(spacing: 16) {
             if viewModel.output.noMoviesFound {
                 Spacer()
-                Text("Sorry, we can't find the movie you are looking for 😔")
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(Color.customGray)
-                    .frame(width: 250, alignment: .center)
-                    .shadow(color: Color.customGray, radius: 6, y: 2)
+                
+                noMoviesFoundView
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+
                 Spacer()
             } else {
-                MovieList(movies: viewModel.output.movies) { movie in
-                    viewModel.input.movieTapped.send(movie)
-                } onLoadMore: {
-                    viewModel.input.loadMoreMovies.send()
-                }
-                .isLoading(viewModel.output.isLoading)
+                movieList
+                    .transition(.move(edge: .bottom))
+                    .isLoading(viewModel.output.isLoading)
             }
 
             Spacer()
@@ -55,6 +51,23 @@ struct SearchMoviesView: View {
 
 // MARK: Views
 private extension SearchMoviesView {
+
+    var noMoviesFoundView: some View {
+        Text("Sorry, we can't find the movie you are looking for 😔")
+            .multilineTextAlignment(.center)
+            .foregroundStyle(Color.customGray)
+            .frame(width: 250, alignment: .center)
+            .shadow(color: Color.customGray, radius: 6, y: 2)
+    }
+
+    var movieList: some View {
+        MovieList(movies: viewModel.output.movies) { movie in
+            viewModel.input.movieTapped.send(movie)
+        } onLoadMore: {
+            viewModel.input.loadMoreMovies.send()
+        }
+    }
+
     var toolbarView: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button {

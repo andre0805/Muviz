@@ -46,7 +46,7 @@ private extension RootView {
 
             ProgressView()
                 .scaleEffect(1.5)
-                .tint(Color.blackPrimary)
+                .tint(.white)
         }
     }
     var loginView: some View {
