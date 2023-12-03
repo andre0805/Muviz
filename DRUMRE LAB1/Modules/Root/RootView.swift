@@ -31,6 +31,7 @@ struct RootView: View {
                 homeView
             }
         }
+        .transition(.opacity.combined(with: .scale))
         .onAppear {
             viewModel.input.viewDidAppear.send()
         }
