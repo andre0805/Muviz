@@ -25,13 +25,15 @@ struct RootView: View {
             switch viewModel.output.state {
             case .loading:
                 loadingView
+                    .transition(.opacity)
             case .authRequired:
                 loginView
+                    .transition(.opacity)
             case .home:
                 homeView
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
         }
-        .transition(.opacity.combined(with: .scale))
         .onAppear {
             viewModel.input.viewDidAppear.send()
         }

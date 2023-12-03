@@ -46,7 +46,7 @@ private extension LoginView {
     var loadingIndicator: some View {
         ProgressView()
             .scaleEffect(1.5)
-            .tint(.black)
+            .tint(.white)
             .transition(.opacity.combined(with: .scale))
     }
     var loginButton: some View {
